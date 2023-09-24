@@ -1,7 +1,7 @@
 # cosc-257_bird_dbms (WIP)
  A database management system designed for a research project on social dominance in mixed-species flocks of birds.
 
-## Collaborators
+## Contributors
 * Adam Blumoff
 * Jack Cox
 * Wendy Espinosa
