@@ -6,10 +6,10 @@ Our customer is Ethan Clotfelter, a Professor of Biology and Environmental Studi
 
 ## Our DBMS uses the following:
 ### Frontend
-React
+* React
 ### Backend
-PostgreSQL
-Django
+* PostgreSQL
+* Django
 
 ## Contributors
 * Adam Blumoff (@adamblumoff)
