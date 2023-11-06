@@ -15,5 +15,5 @@ Our customer is Ethan Clotfelter, a Professor of Biology and Environmental Studi
 * Adam Blumoff (@adamblumoff)
 * Jack Cox (@jackjohncox)
 * Wendy Espinosa (@espinosawendy)
-* Seojin Jung (@aenocifica)
+* Seojin Jung (@seojinjung)
 * Matteo Riondato (@rionda)
