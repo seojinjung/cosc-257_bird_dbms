@@ -42,6 +42,9 @@ for file in os.listdir():
         # call read text file function 
         
         read_text_file(file_path)
+        
+        if(output == None):
+            continue
 
 
     #Turns text file into dataframe for score calculations
@@ -97,21 +100,24 @@ for file in os.listdir():
                 #If bird2's departure is the same bird, and its time is less than or equal to five seconds, then we can assign a point to bird 2 for dominating bird1
             
                 if(bird2_id==bird2_dep_id and dep_time<=5):
+                    df["score"][ind] = -1
                     df["score"][ind+1] = 1
 
 
-    #Converts to html file for viewing
+    if not df.empty:
+        #Converts to html file for viewing
 
-    html = df.to_html() 
+        html = df.to_html() 
   
-    # write html to file 
+        # write html to file 
 
-    text_file = open("index.html", "w") 
-    text_file.write(html) 
-    text_file.close()
+        text_file = open("index.html", "w") 
+        text_file.write(html) 
+        text_file.close()
   
-    # open html file 
+        # open html file 
 
-    webbrowser.open('index.html') 
+        webbrowser.open('index.html') 
+    
     
     
