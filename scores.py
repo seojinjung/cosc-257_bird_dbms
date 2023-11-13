@@ -98,14 +98,13 @@ for file in os.listdir():
                 #If bird2's departure is the same bird, and its time is less than or equal to five seconds, then we can assign a point to bird 2 for dominating bird1
             
                 if(bird2_id==bird2_dep_id and dep_time<=5):
-                    df["score"][ind] = -1
                     df["score"][ind+1] = 1
 
+    df_final = df[['id', 'score']]
 
-    if not df.empty:
+    if not df_final.empty:
         #Converts to html file for viewing
-
-        html = df.to_html() 
+        html = df_final.to_html() 
   
         # write html to file 
 
