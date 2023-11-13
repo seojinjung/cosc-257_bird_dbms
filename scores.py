@@ -108,13 +108,13 @@ for file in os.listdir():
   
         # write html to file 
 
-        text_file = open("index.html", "w") 
+        text_file = open("scores.html", "w") 
         text_file.write(html) 
         text_file.close()
   
         # open html file 
 
-        webbrowser.open('index.html') 
+        webbrowser.open('scores.html') 
     
     
     
