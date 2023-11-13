@@ -43,8 +43,6 @@ for file in os.listdir():
         
         read_text_file(file_path)
         
-        if(output == None):
-            continue
 
 
     #Turns text file into dataframe for score calculations
