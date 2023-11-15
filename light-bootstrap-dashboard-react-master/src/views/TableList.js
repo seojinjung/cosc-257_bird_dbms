@@ -40,45 +40,45 @@ function TableList() {
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td>Dakota Rice</td>
-                      <td>$36,738</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
+                      <td>Sample #1</td>
+                      <td>$0</td>
+                      <td>Location</td>
+                      <td>City</td>
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td>Minerva Hooper</td>
-                      <td>$23,789</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
+                      <td>Sample #2</td>
+                      <td>$0</td>
+                      <td>Location</td>
+                      <td>City</td>
                     </tr>
                     <tr>
                       <td>3</td>
-                      <td>Sage Rodriguez</td>
-                      <td>$56,142</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
+                      <td>Sample #3</td>
+                      <td>$0</td>
+                      <td>Location</td>
+                      <td>City</td>
                     </tr>
                     <tr>
                       <td>4</td>
-                      <td>Philip Chaney</td>
-                      <td>$38,735</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
+                      <td>Sample #4</td>
+                      <td>$0</td>
+                      <td>Location</td>
+                      <td>City</td>
                     </tr>
                     <tr>
                       <td>5</td>
-                      <td>Doris Greene</td>
-                      <td>$63,542</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
+                      <td>Sample #5</td>
+                      <td>$0</td>
+                      <td>Location</td>
+                      <td>City</td>
                     </tr>
                     <tr>
                       <td>6</td>
-                      <td>Mason Porter</td>
-                      <td>$78,615</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
+                      <td>Sample #6</td>
+                      <td>$0</td>
+                      <td>Locatiom</td>
+                      <td>City</td>
                     </tr>
                   </tbody>
                 </Table>
