@@ -24,6 +24,19 @@ function Hierarchy() {
     fetchData();
   }, []);
 
+  const handleDelete = async(rfid) => {
+    try {
+      const response = await BirdFinder.delete(`/${rfid}`);
+      setBirds(
+        birds.filter((bird) => {
+          return bird.rfid !== rfid;
+        })
+      );
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <Container fluid>
@@ -58,7 +71,7 @@ function Hierarchy() {
                             </Button>
                           </td>
                           <td>
-                            <Button className="btn-fill btn-wd" variant="info">
+                            <Button onClick={() => handleDelete(bird.rfid)} className="btn-fill btn-wd" variant="info">
                               Delete
                             </Button>
                           </td>
