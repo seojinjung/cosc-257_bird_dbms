@@ -31,14 +31,12 @@ import { BirdsContextProvider } from "context/BirdsContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <StrictMode>
-    <BirdsContextProvider>
-        <BrowserRouter>
-        <Switch>
-          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-          <Redirect from="/" to="/admin/hierarchy" />
-        </Switch>
-        </BrowserRouter>
-    </BirdsContextProvider>
-  </StrictMode>
+  <BirdsContextProvider>
+      <BrowserRouter>
+      <Switch>
+        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+        <Redirect from="/" to="/admin/hierarchy" />
+      </Switch>
+      </BrowserRouter>
+  </BirdsContextProvider>
 );
