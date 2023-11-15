@@ -44,14 +44,15 @@ function Hierarchy() {
               <Card.Header>
                 <Card.Title as="h4">Dominance Hierarchy</Card.Title>
                 <p className="card-category">
-                  Currently displaying data from 2021-2022
-                </p>
+                  Currently displaying data from 2021-2022 {/** possible to add metadata so this updates automatically year to year? */}
+                </p> 
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover">
                   <thead>
                     <tr>
                       <th className="border-0">RFID</th>
+                      <th className="border-0">Band No.</th>
                       <th className="border-0">Species</th>
                       <th className="border-0">Dominance Score</th>
                       <th className="border-0"></th>
@@ -63,6 +64,7 @@ function Hierarchy() {
                       return(
                         <tr>
                           <td>{bird.rfid}</td>
+                          <td>{bird.band_no}</td>
                           <td>{bird.species}</td>
                           <td>{bird.dom_score}</td>
                           <td>
