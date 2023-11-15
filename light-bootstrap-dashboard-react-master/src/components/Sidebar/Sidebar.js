@@ -38,14 +38,14 @@ function Sidebar({ color, image, routes }) {
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
           <a
-            href="google.com"
+            href="hierarchy"
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
               <img src={require("assets/img/bird-icon.png")} alt="..." />
             </div>
           </a>
-          <a className="simple-text" href="http://www.google.com">
+          <a className="simple-text" href="hierarchy">
             Aviary
           </a>
         </div>

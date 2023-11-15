@@ -13,7 +13,7 @@ app.use(express.json());
 app.get("/api/v1/birds", async (req, res) => {
 
     try{
-        const results = await db.query("select * from birds");
+        const results = await db.query("select * from birds order by dom_score desc");
         res.status(200).json({
             status: "success",
             results: results.rows.length,
