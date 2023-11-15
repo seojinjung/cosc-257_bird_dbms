@@ -35,7 +35,7 @@ function Hierarchy() {
     } catch(err) {
       console.log(err);
     }
-  }
+  } // consider adding an "are you sure?" dialog to confirm deletion
 
   return (
     <>

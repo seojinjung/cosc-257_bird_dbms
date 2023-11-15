@@ -100,7 +100,23 @@ app.delete("/api/v1/birds/:rfid", async (req, res) => {
 
 });
 
+// get all feeders (TEST)
+app.get("/api/v1/feeders", async (req, res) => {
 
+    try{
+        const results = await db.query("select * from feeder order by fname");
+        res.status(200).json({
+            status: "success",
+            results: results.rows.length,
+            data: {
+                feeders: results.rows,
+            },
+        });
+    } catch(err) {
+        console.log(err);
+    }
+    
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

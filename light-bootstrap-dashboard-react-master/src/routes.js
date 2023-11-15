@@ -16,7 +16,7 @@
 
 */
 import Hierarchy from "views/Dashboard.js";
-import TableList from "views/TableList.js";
+import FeederList from "views/FeederList.js";
 
 const dashboardRoutes = [
   {
@@ -27,10 +27,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/tables",
-    name: "Tables",
+    path: "/feeders",
+    name: "Feeders",
     icon: "nc-icon nc-notes",
-    component: TableList,
+    component: FeederList,
     layout: "/admin"
   },
 
