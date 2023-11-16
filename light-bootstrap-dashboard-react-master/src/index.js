@@ -33,11 +33,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BirdsContextProvider>
-      <BrowserRouter>
-      <Switch>
-        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Redirect from="/" to="/admin/hierarchy" />
-      </Switch>
-      </BrowserRouter>
+    <FeederContextProvider>
+        <BrowserRouter>
+        <Switch>
+          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+          <Redirect from="/" to="/admin/hierarchy" />
+        </Switch>
+        </BrowserRouter>
+      </FeederContextProvider>
   </BirdsContextProvider>
 );
