@@ -104,7 +104,7 @@ app.delete("/api/v1/birds/:rfid", async (req, res) => {
 app.get("/api/v1/feeders", async (req, res) => {
 
     try{
-        const results = await db.query("select * from feeders");
+        const results = await db.query("select * from feeders order by fname asc");
         res.status(200).json({
             status: "success",
             results: results.rows.length,

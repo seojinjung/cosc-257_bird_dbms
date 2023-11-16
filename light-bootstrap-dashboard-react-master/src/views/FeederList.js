@@ -62,7 +62,6 @@ function FeederList() {
               </Card.Body>
             </Card>
           </Col>
-          
         </Row>
       </Container>
     </>

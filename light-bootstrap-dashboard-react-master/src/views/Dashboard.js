@@ -69,6 +69,11 @@ function Hierarchy() {
                           <td>{bird.dom_score}</td>
                           <td>
                             <Button className="btn-fill btn-wd" variant="info">
+                              View
+                            </Button>
+                          </td>
+                          <td>
+                            <Button className="btn-fill btn-wd" variant="info">
                               Edit
                             </Button>
                           </td>
