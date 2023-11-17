@@ -33,7 +33,6 @@ const dashboardRoutes = [
     component: FeederList,
     layout: "/admin"
   },
-
 ];
 
 export default dashboardRoutes;

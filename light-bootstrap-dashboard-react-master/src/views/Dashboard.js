@@ -1,6 +1,8 @@
 import React, {useContext, useEffect} from "react";
+import { useState } from 'react';
 import BirdFinder from "apis/BirdFinder";
 import { BirdsContext } from "context/BirdsContext";
+import { Link } from 'react-router-dom';
 
 // react-bootstrap components
 import {
@@ -8,11 +10,16 @@ import {
   Table,
   Container,
   Button,
+  Modal
 } from "react-bootstrap";
 
 
 function Hierarchy() {
   const {birds, setBirds} = useContext(BirdsContext)
+  
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const fetchData = async() => {
@@ -35,7 +42,16 @@ function Hierarchy() {
     } catch(err) {
       console.log(err);
     }
-  } // consider adding an "are you sure?" dialog to confirm deletion
+  } 
+
+  const handleView = async(rfid) => {
+    try {
+      const response = await BirdFinder.get(`/${rfid}`);
+      window.open(`/bird/${rfid}`, '_blank', 'noopener, noreferrer');
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -68,7 +84,7 @@ function Hierarchy() {
                           <td>{bird.species}</td>
                           <td>{bird.dom_score}</td>
                           <td>
-                            <Button className="btn-fill btn-wd" variant="info">
+                            <Button  className="btn-fill btn-wd" variant="info">
                               View
                             </Button>
                           </td>
@@ -78,7 +94,7 @@ function Hierarchy() {
                             </Button>
                           </td>
                           <td>
-                            <Button onClick={() => handleDelete(bird.rfid)} className="btn-fill btn-wd" variant="info">
+                            <Button onClick={handleShow} className="btn-fill btn-wd" variant="info">
                               Delete
                             </Button>
                           </td>
@@ -90,6 +106,20 @@ function Hierarchy() {
               </Card.Body>
             </Card>
       </Container>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete bird?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>This action will delete this bird and associated information from the database.</Modal.Body>
+        <Modal.Footer>
+          <Button className="btn-fill btn-wd" variant="info" onClick={() => handleDelete(bird.rfid)} >
+            Confirm
+          </Button>
+          <Button variant="info" onClick={handleClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
