@@ -24,6 +24,11 @@
        vertical-align: middle;
    }
 
+   tr.same-col-widths th {
+    width: 9%;
+    text-align: center;
+  }
+
     > thead > tr > th{
         border-bottom-width: 1px;
         font-size: $font-size-small;
@@ -33,7 +38,12 @@
         padding-bottom: 5px;
         border-top: none !important;
         border-bottom: none;
-        text-align: left !important;
+        text-align: left;
+    }
+
+    .logo-img img {
+    max-width: 25px;
+    max-height: 25px;
     }
 
    .td-actions .btn{

@@ -36,8 +36,8 @@ root.render(
     <FeederContextProvider>
         <BrowserRouter>
         <Switch>
-          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-          <Redirect from="/" to="/admin/hierarchy" />
+          <Route path="/main" render={(props) => <AdminLayout {...props} />} />
+          <Redirect from="/" to="/main/hierarchy" />
         </Switch>
         </BrowserRouter>
       </FeederContextProvider>

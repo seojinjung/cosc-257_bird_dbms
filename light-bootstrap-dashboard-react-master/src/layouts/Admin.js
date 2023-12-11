@@ -26,14 +26,14 @@ import routes from "routes.js";
 import sidebarImage from "assets/img/sidebar-3.jpg";
 
 function Admin() {
-  const [image, setImage] = React.useState(sidebarImage);
-  const [color, setColor] = React.useState("black");
-  const [hasImage, setHasImage] = React.useState(true);
+  const [image] = React.useState(sidebarImage);
+  const [color] = React.useState("black");
+  const [hasImage] = React.useState(true);
   const location = useLocation();
   const mainPanel = React.useRef(null);
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/main") {
         return (
           <Route
             path={prop.layout + prop.path}

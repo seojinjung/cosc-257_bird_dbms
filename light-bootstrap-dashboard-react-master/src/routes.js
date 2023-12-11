@@ -24,14 +24,14 @@ const dashboardRoutes = [
     name: "Hierarchy",
     icon: "nc-icon nc-chart-pie-35",
     component: Hierarchy,
-    layout: "/admin"
+    layout: "/main"
   },
   {
     path: "/feeders",
     name: "Feeders",
     icon: "nc-icon nc-notes",
     component: FeederList,
-    layout: "/admin"
+    layout: "/main"
   },
 ];
 
