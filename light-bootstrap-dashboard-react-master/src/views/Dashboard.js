@@ -2,7 +2,6 @@ import React, {useContext, useEffect} from "react";
 import { useState } from 'react';
 import BirdFinder from "apis/BirdFinder";
 import { BirdsContext } from "context/BirdsContext";
-import { Link } from 'react-router-dom';
 
 // react-bootstrap components
 import {
@@ -10,16 +9,26 @@ import {
   Table,
   Container,
   Button,
-  Modal
+  Modal,
+  Dropdown,
 } from "react-bootstrap";
 
 
+
 function Hierarchy() {
-  const {birds, setBirds} = useContext(BirdsContext)
+  // Get bird info
+  const {birds, setBirds} = useContext(BirdsContext);
   
+  const [rfid, setRFID] = useState(null);
   const [show, setShow] = useState(false);
+  const [lgShow, setLgShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handleViewShow = async(rfid) => {
+    setRFID(rfid);
+    setLgShow(true);
+  }
+  
 
   useEffect(() => {
     const fetchData = async() => {
@@ -43,15 +52,6 @@ function Hierarchy() {
       console.log(err);
     }
   } 
-
-  const handleView = async(rfid) => {
-    try {
-      const response = await BirdFinder.get(`/${rfid}`);
-      window.open(`/bird/${rfid}`, '_blank', 'noopener, noreferrer');
-    } catch(err) {
-      console.log(err);
-    }
-  }
 
   return (
     <>
@@ -84,19 +84,27 @@ function Hierarchy() {
                           <td>{bird.species}</td>
                           <td>{bird.dom_score}</td>
                           <td>
-                            <Button  className="btn-fill btn-wd" variant="info">
-                              View
-                            </Button>
-                          </td>
-                          <td>
-                            <Button className="btn-fill btn-wd" variant="info">
-                              Edit
-                            </Button>
-                          </td>
-                          <td>
-                            <Button onClick={handleShow} className="btn-fill btn-wd" variant="info">
-                              Delete
-                            </Button>
+                            <Dropdown>
+                              <Dropdown.Toggle
+                                variant="default"
+                                style={{border: "none"}}
+                              >
+                                <div className="logo-img">
+                                  <img src={require("assets/img/more.png")} alt="..." />
+                                </div>
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                              <Dropdown.Item onClick={() => handleViewShow(bird.rfid)}>
+                                  View
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => e.preventDefault()}>
+                                  Edit
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => setShow(true)}>
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
                           </td>
                         </tr>
                       );
@@ -106,11 +114,13 @@ function Hierarchy() {
               </Card.Body>
             </Card>
       </Container>
-      <Modal show={show} onHide={handleClose}>
+
+
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Delete bird?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>This action will delete this bird and associated information from the database.</Modal.Body>
+        <Modal.Body>This action will delete this bird and its associated information from the database.</Modal.Body>
         <Modal.Footer>
           <Button className="btn-fill btn-wd" variant="info" onClick={() => handleDelete(bird.rfid)} >
             Confirm
@@ -118,6 +128,40 @@ function Hierarchy() {
           <Button variant="info" onClick={handleClose}>
             Cancel
           </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+      size="lg" 
+      show={lgShow} 
+      onHide={() => setLgShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{rfid}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+                <div class="image-cropper">
+                    <img
+                      src={require("assets/img/tuft.png")}
+                    ></img>
+                </div>
+                <Table className="table-hover table-fixed">
+                  <thead>
+                    <tr class="same-col-widths text-align: center">
+                      <th className="border-0">Tarsus</th>
+                      <th className="border-0">Skull</th>
+                      <th className="border-0">Wing</th>
+                      <th className="border-0">Body Mass</th>
+                      <th className="border-0">Location</th>
+                      <th className="border-0">Left Leg</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        <tr>
+                        </tr>                     
+                  </tbody>
+                </Table>
+              </Modal.Body>
+        <Modal.Footer>
         </Modal.Footer>
       </Modal>
     </>
