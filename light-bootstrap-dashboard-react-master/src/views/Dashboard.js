@@ -45,12 +45,15 @@ function Hierarchy() {
   } 
 
   const handleView = async(rfid) => {
-    try {
-      const response = await BirdFinder.get(`/${rfid}`);
-      window.open(`/bird/${rfid}`, '_blank', 'noopener, noreferrer');
-    } catch(err) {
-      console.log(err);
+    const fetchData = async() => {
+      try {
+        const response = await BirdFinder.get(`/${rfid}`);
+        window.open(`/bird/${rfid}`, '_blank');
+      } catch(err) {
+        console.log(err);
+      }
     }
+    fetchData();
   }
 
   return (
@@ -84,7 +87,7 @@ function Hierarchy() {
                           <td>{bird.species}</td>
                           <td>{bird.dom_score}</td>
                           <td>
-                            <Button  className="btn-fill btn-wd" variant="info">
+                            <Button onClick={() => handleView(bird.rfid)} className="btn-fill btn-wd" variant="info">
                               View
                             </Button>
                           </td>
