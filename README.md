@@ -1,15 +1,14 @@
-# cosc-257_bird_dbms (WIP)
+# Aviary: a DBMS for tracking social dominance in birds
 A database management system designed for a research project on social dominance in mixed-species flocks of birds.
 Our customer is Ethan Clotfelter, a Professor of Biology and Environmental Studies at Amherst College.
 
-## [description of product]
-
-## Our DBMS uses the following:
+## Our stack:
 ### Frontend
-* React
+* React/Bootstrap
 ### Backend
 * PostgreSQL
 * Django
+* Postman
 
 ## Contributors
 * Adam Blumoff (@adamblumoff)
