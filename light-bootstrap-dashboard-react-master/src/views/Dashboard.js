@@ -14,7 +14,6 @@ import {
 } from "react-bootstrap";
 
 
-
 function Hierarchy() {
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
@@ -71,8 +70,6 @@ function Hierarchy() {
                       <th className="border-0">Band No.</th>
                       <th className="border-0">Species</th>
                       <th className="border-0">Dominance Score</th>
-                      <th className="border-0"></th>
-                      <th className="border-0"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -147,12 +144,13 @@ function Hierarchy() {
                 <Table className="table-hover table-fixed">
                   <thead>
                     <tr class="same-col-widths text-align: center">
-                      <th className="border-0">Tarsus</th>
-                      <th className="border-0">Skull</th>
-                      <th className="border-0">Wing</th>
-                      <th className="border-0">Body Mass</th>
+                      <th className="border-0">Tarsus length (mm)</th>
+                      <th className="border-0">Skull length (mm)</th>
+                      <th className="border-0">Wing length (mm)</th>
+                      <th className="border-0">Body Mass (g)</th>
                       <th className="border-0">Location</th>
-                      <th className="border-0">Left Leg</th>
+                      <th className="border-0">Left Leg Band</th>
+                      <th className="border-0">Right Leg Band</th>
                     </tr>
                   </thead>
                   <tbody>
