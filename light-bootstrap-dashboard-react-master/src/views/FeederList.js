@@ -2,8 +2,8 @@ import React, {useContext, useEffect} from "react";
 import { useState } from 'react';
 import FeederFinder from "apis/FeederFinder";
 import { FeederContext } from "context/FeederContext";
-import VisitFinder from "apis/VisitFinder";
-import { VisitContext } from "context/VisitContext";
+import ScoreFinder from "apis/ScoreFinder";
+import { ScoreContext } from "context/ScoreContext";
 
 // react-bootstrap components
 import {
@@ -23,7 +23,7 @@ import {
 function FeederList() {
   // feeder and visit info
   const {feeders, setFeeders} = useContext(FeederContext);
-  const {visits, setVisits} = useContext(VisitContext);
+  const {scores, setScores} = useContext(ScoreContext);
   
   const [fname, setFname] = useState(null);
   const [feederShow, setFeederShow] = useState(false);
@@ -45,8 +45,8 @@ function FeederList() {
 
   const fetchVisitData = async (fname) => {
     try {
-      const response = await VisitFinder.get(`/${fname}`);
-      setVisits(response.data.data.visits);
+      const response = await ScoreFinder.get(`/${fname}`);
+      setScores(response.data.data.scores);
       setFeederShow(true);
       // Other logic based on fetched data
     } catch (err) {
