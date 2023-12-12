@@ -135,6 +135,23 @@ app.get("/api/v1/captures/:rfid", async (req, res) => {
 
 });
 
+// get a feeder's visit data from the scores table
+app.get("/api/v1/scores/:fname", async (req, res) => {
+    try{
+        const results = await db.query("select * from scores where fname = $1", [req.params.fname]);
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                scores: results.rows[0],
+            },
+        });
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Server is up and listening on port ${port}`);

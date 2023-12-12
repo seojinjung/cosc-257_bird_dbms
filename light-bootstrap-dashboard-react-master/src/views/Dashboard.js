@@ -30,7 +30,6 @@ function Hierarchy() {
   const [notes, setNotes] = useState(null);
   const [show, setShow] = useState(false);
   const [BirdShow, setBirdShow] = useState(false);
-
   
   const handleClose = () => setShow(false);
 
@@ -149,7 +148,10 @@ function Hierarchy() {
       </Container>
 
 
-      <Modal show={show} onHide={() => setShow(false)}>
+      <Modal 
+      show={show} 
+      onHide={() => setShow(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Delete bird?</Modal.Title>
         </Modal.Header>

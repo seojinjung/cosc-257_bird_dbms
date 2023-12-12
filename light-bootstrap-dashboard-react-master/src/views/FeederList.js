@@ -21,16 +21,38 @@ import {
 } from "react-bootstrap";
 
 function FeederList() {
+  // feeder and visit info
   const {feeders, setFeeders} = useContext(FeederContext);
   const {visits, setVisits} = useContext(VisitContext);
   
   const [fname, setFname] = useState(null);
-  const [lgShow, setLgShow] = useState(false);
+  const [feederShow, setFeederShow] = useState(false);
+  const [totalVisits, setTotalVisits] = useState(null);
+  const [thirtyDays, setThirtyDays] = useState(null);
+  const [mostVisits, setMostVisits] = useState(null);
+  const [leastVisits, setLeastVisits] = useState(null);
 
-  const handleViewShow = async(fname) => {
+  const handleClose = () => setFeederShow(false);
+
+  const handleViewShow = async(fname, totalVisits, thirtyDays, mostVisits, leastVisits) => {
     setFname(fname);
-    setLgShow(true);
+    setTotalVisits(totalVisits);
+    setThirtyDays(thirtyDays);
+    setMostVisits(mostVisits);
+    setLeastVisits(leastVisits);
+    setFeederShow(true);
   }
+
+  const fetchVisitData = async (fname) => {
+    try {
+      const response = await VisitFinder.get(`/${fname}`);
+      setVisits(response.data.data.visits);
+      setFeederShow(true);
+      // Other logic based on fetched data
+    } catch (err) {
+      // Handle error if needed
+    }
+  };
 
   useEffect(() => {
     const fetchData = async() => {
@@ -72,8 +94,7 @@ function FeederList() {
                             <Dropdown>
                               <Dropdown.Toggle
                                 variant="default"
-                                style={{border: "none"}}
-                              >
+                                style={{border: "none"}}>
                                 <div className="logo-img">
                                   <img src={require("assets/img/more.png")} alt="..." />
                                 </div>
@@ -101,8 +122,8 @@ function FeederList() {
 
       <Modal
       size="lg" 
-      show={lgShow} 
-      onHide={() => setLgShow(false)}>
+      show={feederShow} 
+      onHide={() => setFeederShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{fname}</Modal.Title>
         </Modal.Header>
