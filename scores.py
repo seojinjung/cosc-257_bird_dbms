@@ -22,7 +22,6 @@ path = r"C:\Users\sambl\Dropbox\PC\Downloads\Sei 2022-2023-20231102T002821Z-001\
 os.chdir(path) 
   
 # Read text File 
-
 output = 'output.txt'
 #Operation to read the text files
 
@@ -33,7 +32,8 @@ def read_text_file(file_path):
             file_out.writelines(
                 filter(lambda line: text in line, file_in)
             )
-        
+
+   
 
 df_sql = pd.DataFrame()
 #Iterate through all files in our folder
@@ -86,7 +86,7 @@ for file in os.listdir():
     
             #Gets timestamp for bird2's potential departure time and rfid
         
-            bird2_dep_time = datetime.strptime(df["datetime"][ind+2], '%m/%d/%y %H:%M:%S').timestamp()
+            bird2_dep_time = datetime.strptime(str(df["datetime"][ind+2]), '%m/%d/%y %H:%M:%S').timestamp()
             bird2_dep_rfid = df['rfid'][ind+2]
 
         
