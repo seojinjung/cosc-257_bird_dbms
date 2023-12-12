@@ -118,6 +118,23 @@ app.get("/api/v1/feeders", async (req, res) => {
     
 });
 
+// Get one bird's capture data
+app.get("/api/v1/captures/:rfid", async (req, res) => {
+    try{
+        const results = await db.query("select * from captures where rfid = $1", [req.params.rfid]);
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                captures: results.rows[0],
+            },
+        });
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Server is up and listening on port ${port}`);

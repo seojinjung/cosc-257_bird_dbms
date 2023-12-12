@@ -2,6 +2,8 @@ import React, {useContext, useEffect} from "react";
 import { useState } from 'react';
 import BirdFinder from "apis/BirdFinder";
 import { BirdsContext } from "context/BirdsContext";
+import CaptureFinder from "apis/CaptureFinder";
+import { CapturesContext } from "context/CaptureContext";
 
 // react-bootstrap components
 import {
@@ -15,20 +17,52 @@ import {
 
 
 
+
 function Hierarchy() {
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
+  const {captures, setCaptures} = useContext(CapturesContext)
   
   const [rfid, setRFID] = useState(null);
+  const [species, setSpecies] = useState(null);
+  const [lband, setLBand] = useState(null);
+  const [rband, setRBand] = useState(null);
+  const [bandno, setBandNo] = useState(null);
+  const [notes, setNotes] = useState(null);
   const [show, setShow] = useState(false);
-  const [lgShow, setLgShow] = useState(false);
+  const [BirdShow, setBirdShow] = useState(false);
+
+  
   const handleClose = () => setShow(false);
 
-  const handleViewShow = async(rfid) => {
+  useEffect(() => {
+    if (rfid !== null && species !== null) {
+      // Your logic here that you want to execute when rfid and species change
+      // This code will run when both rfid and species are not null
+      fetchCaptureData(rfid, species);
+    }
+  }, [rfid, species]);
+
+  const handleViewShow = async(rfid, species, lband, rband, bandno, notes) => {
     setRFID(rfid);
-    setLgShow(true);
-  }
+    setSpecies(species);
+    setRBand(rband);
+    setLBand(lband);
+    setBandNo(bandno);
+    setNotes(notes);
+    setBirdShow(true);
+  };
   
+  const fetchCaptureData = async (rfid, species) => {
+    try {
+      const response = await CaptureFinder.get(`/${rfid}`);
+      setCaptures(response.data.data.captures);
+      setBirdShow(true);
+      // Other logic based on fetched data
+    } catch (err) {
+      // Handle error if needed
+    }
+  };
 
   useEffect(() => {
     const fetchData = async() => {
@@ -40,6 +74,7 @@ function Hierarchy() {
     fetchData();
   }, []);
 
+
   const handleDelete = async(rfid) => {
     try {
       const response = await BirdFinder.delete(`/${rfid}`);
@@ -49,9 +84,8 @@ function Hierarchy() {
         })
       );
     } catch(err) {
-      console.log(err);
     }
-  } 
+  }; 
 
   return (
     <>
@@ -67,6 +101,7 @@ function Hierarchy() {
                 <Table className="table-hover">
                   <thead>
                     <tr>
+                      <th className="border-0">Rank</th>
                       <th className="border-0">RFID</th>
                       <th className="border-0">Band No.</th>
                       <th className="border-0">Species</th>
@@ -79,6 +114,7 @@ function Hierarchy() {
                     {birds.map(bird => {
                       return(
                         <tr>
+                          <td>{1}</td>
                           <td>{bird.rfid}</td>
                           <td>{bird.band_no}</td>
                           <td>{bird.species}</td>
@@ -94,7 +130,7 @@ function Hierarchy() {
                                 </div>
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                              <Dropdown.Item onClick={() => handleViewShow(bird.rfid)}>
+                              <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
                                   View
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={(e) => e.preventDefault()}>
@@ -133,33 +169,67 @@ function Hierarchy() {
 
       <Modal
       size="lg" 
-      show={lgShow} 
-      onHide={() => setLgShow(false)}>
+      show={BirdShow} 
+      onHide={() => setBirdShow(false)}
+      centered="true"
+      animation="true">
         <Modal.Header closeButton>
-          <Modal.Title>{rfid}</Modal.Title>
+          <Modal.Title>
+            <h3> <b style={{ fontWeight: 'bold' }}>RFID:</b> <i>{rfid}</i></h3>
+            <h4> <b style={{ fontWeight: 'bold' }}>Band No.</b> <i>{bandno}</i></h4>
+            </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-                <div class="image-cropper">
-                    <img
-                      src={require("assets/img/tuft.png")}
-                    ></img>
+                <div className="image-cropper">
+                  {typeof species === 'string' ? (
+                  <>
+                    {species.trim() === 'TUTI' ? (
+                      <>
+                        <img src={require("assets/img/tuft.png")} />
+                      </>
+                      ) : species.trim() === 'BCCH' ? (
+                      <>
+                        <img src={require("assets/img/chick.png")}/>
+                      </>
+                      ) : species.trim() === 'WBNU' ? (
+                        <>
+                          <img src={require("assets/img/nuthatch.png")}/>
+                        </>
+                    ) : (
+                      <p>No image available for this species</p>
+                    )}
+                  </>
+                ) : (
+                  <p>Invalid species data type</p>
+                )}
                 </div>
                 <Table className="table-hover table-fixed">
                   <thead>
-                    <tr class="same-col-widths text-align: center">
+                    <tr className="same-col-widths text-align: center">
+                      <th className="border-0">Left Leg</th>
+                      <th className="border-0">Right Leg</th>
                       <th className="border-0">Tarsus</th>
                       <th className="border-0">Skull</th>
                       <th className="border-0">Wing</th>
                       <th className="border-0">Body Mass</th>
-                      <th className="border-0">Location</th>
-                      <th className="border-0">Left Leg</th>
                     </tr>
                   </thead>
-                  <tbody>
-                        <tr>
-                        </tr>                     
-                  </tbody>
+                  {captures && (
+                    <tbody>
+                      <tr key={captures.id}>
+                        <td>{lband}</td>
+                        <td>{rband}</td>
+                        <td>{captures.tarsus}</td>
+                        <td>{captures.skull}</td>
+                        <td>{captures.wing}</td>
+                        <td>{captures.body_mass}</td>
+                      </tr>
+                    </tbody>
+                  )}
                 </Table>
+                {notes && (
+                <i className="subtext">Notes: {notes}</i>
+                  )}
               </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>
