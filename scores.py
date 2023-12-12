@@ -5,9 +5,16 @@ from datetime import datetime
 import webbrowser 
 import os 
 import warnings
-import pandas as pd
 import psycopg2
+import regex
 from sqlalchemy import create_engine
+
+#Define method to remove hyphens
+def remove_hyphens(input_string):
+    # Use the re.sub() function to replace hyphens with an empty string
+    result_string = regex.sub(r'-', '', input_string)
+    return result_string
+
 
 
 # Suppress the SettingWithCopyWarning
@@ -15,7 +22,7 @@ warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning
   
 # Folder Path: **CHANGE FOR WHATEVER FOLDER YOU ARE USING**
 
-path = r"C:\Users\sambl\Dropbox\PC\Downloads\Sei 2022-2023-20231102T002821Z-001\Sei 2022-2023"
+path = r"C:\Users\JackB\Downloads\Sei 2022-2023\Sei 2022-2023"
   
 # Change the directory 
 
@@ -55,6 +62,7 @@ for file in os.listdir():
     #Turns text file into dataframe for score calculations
 
     df = pd.read_csv(output, sep = ' ', header = None, names = ['n/a', 'feed #', 'rfid', 'date', 'time'])
+    df['rfid'] = remove_hyphens(df['rfid'])
     df['datetime'] = df['date'] + " " + df['time']
     df["displace"] = ""
     df["departure"] = ""
@@ -114,17 +122,14 @@ for file in os.listdir():
     #df_final = df_final.groupby('rfid').sum().reset_index()
 
     
-   
-    
-    
-
+"""
 conn_string = 'postgresql://postgres:bc-chickadee@cosc-257-node06.cs.amherst.edu/bird_db'
 
      
 engine = create_engine(conn_string)
 
 df_sql.to_sql('scores', engine, if_exists='replace', index = False)
-
+"""
 if not df_sql.empty:
     #Converts to html file for viewing
     html = df_sql.to_html() 
