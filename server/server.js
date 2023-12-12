@@ -118,31 +118,22 @@ app.get("/api/v1/feeders", async (req, res) => {
     
 });
 
-// get one feeder
-app.get("/api/v1/feeders/:fname", async (req, res) => {
-
+// Get one bird's capture data
+app.get("/api/v1/captures/:rfid", async (req, res) => {
     try{
-        const results = await db.query("select * from feeders where fname = $1", [req.params.fname]);
+        const results = await db.query("select * from captures where rfid = $1", [req.params.rfid]);
+
         res.status(200).json({
             status: "success",
-            results: results.rows.length,
             data: {
-                feeders: results.rows[0],
+                captures: results.rows[0],
             },
         });
     } catch(err) {
         console.log(err);
     }
-    
+
 });
-
-// get total visits for a feeder
-
-// get total visits IN THE LAST 30 DAYS for a feeder 
-
-// get most frequent visitor to a feeder
-
-// get least frequent visitor to a feeder
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

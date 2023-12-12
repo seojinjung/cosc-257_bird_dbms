@@ -381,6 +381,11 @@ body > .navbar-collapse{
             margin: 0 auto;
         }
     }
+
+    .subtext{
+        color: rgb(122, 122, 122);
+    }
+
     .modal-content{
         .modal-header{
             border-bottom: none;
@@ -388,6 +393,10 @@ body > .navbar-collapse{
             padding-right: 24px;
             padding-bottom: 0;
             padding-left: 24px;
+            width: 100% !important;
+            background-color: #585858;
+            position: relative;
+            color: white;
 
             .modal-profile{
                 width: 80px;
@@ -414,8 +423,14 @@ body > .navbar-collapse{
         }
 
         
-        .modal-title{
-            font-weight: bold;
+        .modal-title h4{
+            margin-top: 10px;
+            margin-left: 0px;
+            margin-bottom: 24px;
+        }
+
+        .modal-title h3{
+            margin-top: 0px;
         }
 
         .image-cropper {

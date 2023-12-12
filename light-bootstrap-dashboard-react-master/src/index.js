@@ -28,21 +28,19 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import AdminLayout from "layouts/Admin.js";
 import { BirdsContextProvider } from "context/BirdsContext";
 import { FeederContextProvider } from "context/FeederContext";
-import { VisitContextProvider } from "context/VisitContext";
+import { CapturesContextProvider } from "context/CaptureContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BirdsContextProvider>
     <FeederContextProvider>
-        <VisitContextProvider>
-          <BrowserRouter>
-          <Switch>
-            <Route path="/main" render={(props) => <AdminLayout {...props} />} />
-            <Redirect from="/" to="/main/hierarchy" />
-          </Switch>
-          </BrowserRouter>
-        </VisitContextProvider>
+        <BrowserRouter>
+        <Switch>
+          <Route path="/main" render={(props) => <AdminLayout {...props} />} />
+          <Redirect from="/" to="/main/hierarchy" />
+        </Switch>
+        </BrowserRouter>
       </FeederContextProvider>
   </BirdsContextProvider>
 );
