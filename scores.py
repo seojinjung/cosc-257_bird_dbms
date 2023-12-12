@@ -6,13 +6,13 @@ import webbrowser
 import os 
 import warnings
 import psycopg2
-import regex
+import re
 from sqlalchemy import create_engine
 
 #Define method to remove hyphens
 def remove_hyphens(input_string):
     # Use the re.sub() function to replace hyphens with an empty string
-    result_string = regex.sub(r'-', '', input_string)
+    result_string = re.sub(r'-', '', str(input_string), count=4)
     return result_string
 
 
@@ -22,7 +22,7 @@ warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning
   
 # Folder Path: **CHANGE FOR WHATEVER FOLDER YOU ARE USING**
 
-path = r"C:\Users\JackB\Downloads\Sei 2022-2023\Sei 2022-2023"
+path = r"C:\Users\sambl\Dropbox\PC\Downloads\Sei 2022-2023-20231102T002821Z-001\Sei 2022-2023"
   
 # Change the directory 
 
@@ -62,7 +62,6 @@ for file in os.listdir():
     #Turns text file into dataframe for score calculations
 
     df = pd.read_csv(output, sep = ' ', header = None, names = ['n/a', 'feed #', 'rfid', 'date', 'time'])
-    df['rfid'] = remove_hyphens(df['rfid'])
     df['datetime'] = df['date'] + " " + df['time']
     df["displace"] = ""
     df["departure"] = ""
@@ -77,8 +76,11 @@ for file in os.listdir():
 
     for ind in df.index:
 
-        #Stops loop when final calculation can be done
+    
+        #Removes hyphens
+        df['rfid'][ind] = remove_hyphens(df['rfid'][ind])
         
+        #Stops loop when final calculation can be done
         if(ind<len(df.index)-2):
         
             #Gets timestamp for bird1 and rfid
@@ -96,7 +98,7 @@ for file in os.listdir():
         
             bird2_dep_time = datetime.strptime(str(df["datetime"][ind+2]), '%m/%d/%y %H:%M:%S').timestamp()
             bird2_dep_rfid = df['rfid'][ind+2]
-
+            
         
             #Caclulated displacement time for bird1 and bird2
         
@@ -116,7 +118,6 @@ for file in os.listdir():
             
                 if(bird2_rfid==bird2_dep_rfid and dep_time<=5):
                     df["score"][ind+1] = 1
-
     df_final = df[['rfid', 'score', 'date']]
     df_sql = pd.concat([df_final, df_sql])
     #df_final = df_final.groupby('rfid').sum().reset_index()
