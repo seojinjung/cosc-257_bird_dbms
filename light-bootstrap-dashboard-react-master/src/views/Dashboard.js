@@ -297,12 +297,12 @@ function Hierarchy() {
                 <Table className="table-hover table-fixed">
                   <thead>
                     <tr class="same-col-widths text-align: center">
+                      <th className="border-0">Left Leg</th>
+                      <th className="border-0">Right Leg</th>
                       <th className="border-0">Tarsus</th>
                       <th className="border-0">Skull</th>
                       <th className="border-0">Wing</th>
                       <th className="border-0">Body Mass</th>
-                      <th className="border-0">Location</th>
-                      <th className="border-0">Left Leg</th>
                     </tr>
                   </thead>
                   {captures && (
