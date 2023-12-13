@@ -451,7 +451,7 @@ function Hierarchy() {
             <label style={{ fontWeight: 'bold' }}>Skull:</label>
             <input
               type="text"
-              value={captures.skull}
+              value={editBird.captures.skull}
               onChange={handleInputChange}
               name="captures.skull"
             />
@@ -460,7 +460,7 @@ function Hierarchy() {
             <label style={{ fontWeight: 'bold' }}>Wing:</label>
             <input
               type="text"
-              value={captures.wing}
+              value={editBird.captures.wing}
               onChange={handleInputChange}
               name="captures.wing"
             />
@@ -469,7 +469,7 @@ function Hierarchy() {
             <label style={{ fontWeight: 'bold' }}>Body Mass:</label>
             <input
               type="text"
-              value={captures.body_mass}
+              value={editBird.captures.body_mass}
               onChange={handleInputChange}
               name="captures.body_mass"
             />
