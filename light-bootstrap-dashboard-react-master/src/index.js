@@ -29,20 +29,23 @@ import AdminLayout from "layouts/Admin.js";
 import { BirdsContextProvider } from "context/BirdsContext";
 import { FeederContextProvider } from "context/FeederContext";
 import { CapturesContextProvider } from "context/CaptureContext";
+import { ScoreContextProvider } from "context/ScoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BirdsContextProvider>
-    <FeederContextProvider>
-      <CapturesContextProvider>
-          <BrowserRouter>
-          <Switch>
-            <Route path="/main" render={(props) => <AdminLayout {...props} />} />
-            <Redirect from="/" to="/main/hierarchy" />
-          </Switch>
-          </BrowserRouter>
-        </CapturesContextProvider>
-      </FeederContextProvider>
+        <FeederContextProvider>
+                <CapturesContextProvider>
+                        <ScoreContextProvider>
+                                <BrowserRouter>
+                                <Switch>
+                                <Route path="/main" render={(props) => <AdminLayout {...props} />} />
+                                <Redirect from="/" to="/main/hierarchy" />
+                                </Switch>
+                                </BrowserRouter>
+                        </ScoreContextProvider>
+                </CapturesContextProvider>
+        </FeederContextProvider>
   </BirdsContextProvider>
 );

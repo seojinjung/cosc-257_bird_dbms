@@ -17,7 +17,6 @@ import {
 
 
 
-
 function Hierarchy() {
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
@@ -297,13 +296,13 @@ function Hierarchy() {
                 </div>
                 <Table className="table-hover table-fixed">
                   <thead>
-                    <tr className="same-col-widths text-align: center">
-                      <th className="border-0">Left Leg</th>
-                      <th className="border-0">Right Leg</th>
+                    <tr class="same-col-widths text-align: center">
                       <th className="border-0">Tarsus</th>
                       <th className="border-0">Skull</th>
                       <th className="border-0">Wing</th>
                       <th className="border-0">Body Mass</th>
+                      <th className="border-0">Location</th>
+                      <th className="border-0">Left Leg</th>
                     </tr>
                   </thead>
                   {captures && (
