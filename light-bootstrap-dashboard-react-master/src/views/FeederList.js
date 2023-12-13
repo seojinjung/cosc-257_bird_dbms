@@ -125,9 +125,9 @@ function FeederList() {
                               <Dropdown.Item onClick={() => handleViewShow(feeder.fname, feeder.latitude, feeder.longitude)}>
                                   View
                                 </Dropdown.Item>
-                                <Dropdown.Item onClick={(e) => e.preventDefault()}>
+                                {/* <Dropdown.Item onClick={(e) => e.preventDefault()}>
                                   Edit
-                                </Dropdown.Item>
+                                </Dropdown.Item> */}
                               </Dropdown.Menu>
                             </Dropdown>
                           </td>
