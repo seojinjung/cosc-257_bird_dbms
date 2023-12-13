@@ -135,6 +135,25 @@ app.get("/api/v1/captures/:rfid", async (req, res) => {
 
 });
 
+// Update bird's capture data
+app.put("/api/v1/captures/:rfid", async (req, res) => {
+    try{
+        const results = await db.query("UPDATE captures SET rfid = $1, clocation = $2, cdate = $3, tarsus = $4, skull = $5, wing = $6, body_mass = $7 where rfid = $8 returning *",
+        [req.body.rfid, req.body.clocation, req.body.cdate, req.body.tarsus, req.body.skull, req.body.wing, req.body.body_mass, req.params.rfid]
+        );
+       
+        res.status(201).json({
+            status: "success",
+            data: {
+                captures: results.rows[0]
+            }
+        });
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
 // get a feeder's total visits from the scores table
 app.get("/api/v1/scores/:fname", async (req, res) => {
     try{

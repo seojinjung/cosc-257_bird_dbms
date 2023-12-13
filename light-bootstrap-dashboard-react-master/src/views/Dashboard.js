@@ -4,8 +4,6 @@ import BirdFinder from "apis/BirdFinder";
 import { BirdsContext } from "context/BirdsContext.js";
 import CaptureFinder from "apis/CaptureFinder";
 import { CapturesContext } from "context/CaptureContext";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'
 
 // react-bootstrap components
 import {
@@ -17,10 +15,9 @@ import {
   Dropdown,
 } from "react-bootstrap";
 
-function Hierarchy() {
-  // calendar
-  const [date, setDate] = useState(new Date());
 
+
+function Hierarchy() {
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
   const {captures, setCaptures} = useContext(CapturesContext)
@@ -44,13 +41,7 @@ function Hierarchy() {
   const [BirdShow, setBirdShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
 
-  const [tempEditBird, setTempEditBird] = useState(null);
-  const [editBird, setEditBird] = useState({
-    rfid: '',
-    band_no: '',
-    species: '',
-    tarsus: ''
-  });
+  const [editBird, setEditBird] = useState(null);
  
 
   // ----------------------------------------------------------------------------
@@ -68,11 +59,19 @@ function Hierarchy() {
   // ----------------------------------------------------------------------------
   // Get a specific bird's info when 'viewed'.
   useEffect(() => {
-    if (rfid !== null && species !== null) {
-      // This code will run when both rfid and species are not null
-      fetchCaptureData(rfid, species);
+    if (BirdShow || editShow && rfid && species) {
+      fetchCaptureData(rfid);
     }
-  }, [rfid, species]);
+  }, [editShow, rfid, species]);
+
+  useEffect(() => {
+    if (editBird) {
+      setEditBird(prevEditBird => ({
+        ...prevEditBird,
+        captures: captures || {}, // Ensure captures is not null
+      }));
+    }
+  }, [captures]);
 
   // ----------------------------------------------------------------------------
   // Initialize ranks based on birds data
@@ -145,10 +144,11 @@ function Hierarchy() {
   
   // ----------------------------------------------------------------------------
   // Make an Edit pop-up box show up!
-  const handleEdit = (bird) => {
-    setRFID(bird.rfid);
-    setSpecies(bird.species);
-    setEditBird(bird);
+  const handleEdit = async(bird, rfid, species) => {
+    setRFID(rfid);
+    setSpecies(species);
+    fetchCaptureData(rfid);
+    setEditBird({ ...bird, captures: { ...captures } }); 
     setEditShow(true);
   };
 
@@ -158,43 +158,61 @@ function Hierarchy() {
   };
 
   const handleInputChange = (e) => {
-    setTempEditBird({ ...tempEditBird, [e.target.name]: e.target.value });
+    if (editBird) {
+      const { name, value } = e.target;
+      if (name.startsWith('captures.')) {
+        const [, nestedProperty] = name.split('.');
+        const updatedEditBird = {
+          ...editBird,
+          captures: {
+            ...editBird.captures,
+            [nestedProperty]: value,
+          },
+        };
+        setEditBird(updatedEditBird);
+      } else {
+        setEditBird({
+          ...editBird,
+          [name]: value,
+        });
+      }
+    }
   };
-
-  const updateBirdInfo = async (rfid, updatedInfo) => {
+  
+  const handleSaveChanges = async () => {
     try {
-      // Make an API call to update the bird's information
-      const response = await BirdFinder.put(`/birds/update/${rfid}`, updatedInfo);
-      // Handle the response or perform actions after the update if needed
-      console.log('Bird information updated:', response.data);
-      // You can setBirds or perform any other actions here after successful update
-    } catch (error) {
-      // Handle errors or display an error message to the user
+      if(editBird) {
+        console.log(editBird)
+      const birdresponse = await BirdFinder.put(`/${rfid}`, {
+        rfid: editBird.rfid,
+        band_no: editBird.band_no,
+        species: editBird.species,
+        band_left: editBird.band_left,
+        band_right: editBird.band_right,
+        dom_score: editBird.dom_score,
+        notes: editBird.notes,
+      });
+      const catchresponse = await CaptureFinder.put(`/${rfid}`, {
+        rfid: editBird.captures.rfid,
+        clocation: editBird.captures.clocation,
+        cdate: editBird.captures.cdate,
+        tarsus: editBird.captures.tarsus,
+        skull: editBird.captures.skull,
+        wing: editBird.captures.wing,
+        body_mass: editBird.captures.body_mass,
+      });
+      console.log('Bird information updated.');
+      handleCloseEditModal();
+      window.location.reload();
+
+    }} catch (error) {
       console.error('Failed to update bird information:', error.message);
     }
   };
 
-  const handleSaveChanges = async () => {
-    try {
-      if (tempEditBird && editBird.rfid) {
-        // Call updateBirdInfo function with the bird's RFID and updated information
-        await updateBirdInfo(editBird.rfid, tempEditBird);
-        // Close the edit modal or perform any other actions after successful update
-        handleCloseEditModal();
-      } else {
-        console.error('Invalid editBird state');
-      }
-    } catch (error) {
-      // Handle errors or display an error message to the user if needed
-      console.error('Failed to save changes:', error.message);
-    }
-  };
-  
-  
-
   // ----------------------------------------------------------------------------
   // Grab data from captures
-  const fetchCaptureData = async (rfid, species) => {
+  const fetchCaptureData = async (rfid) => {
     try {
       const response = await CaptureFinder.get(`/${rfid}`);
       setCaptures(response.data.data.captures);
@@ -221,78 +239,71 @@ function Hierarchy() {
   return (
     <>
       <Container fluid>
-        {/* <div className='calendar-container'>
-          <h4>Calendar</h4>
-          <Calendar onChange={setDate} value={date} />
-        </div>
-        <p className='text-left'>
-          <span className='bold'>Selected Date: </span>{date.toDateString()}
-        </p> */}
-        <Card className="card-plain table-plain-bg">
-          <Card.Header>
-            <Card.Title as="h4">Dominance Hierarchy</Card.Title>
-            <p className="card-category">
-              Currently displaying data from 2021-2022 {/** possible to add metadata so this updates automatically year to year? */}
-            </p> 
-          </Card.Header>
-          <Card.Body className="table-full-width table-responsive px-0">
-            <Table className="table-hover">
-              <thead>
-                <tr>
-                  <th className="border-0 caret ">Rank</th>
-                  <th className="border-0">RFID</th>
-                  <th className="border-0">Band No.</th>
-                  <th className="border-0 th-clickable" onClick={() => handleSort('species')}>Species</th>
-                  <th className="border-0">Dom Score</th>
-                  <th className="border-0"></th>
-                  <th className="border-0"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {birds.map((bird, index) => (
-                    <tr key={bird.rfid}>
-                      <td>{ranks[index] === 1 ? (
-                        <img src={require("assets/img/first.png")} style={{ width: '25px', height: '25px'}} />
-                      ) : ranks[index] === 2 ? (
-                        <img src={require("assets/img/second.png")} style={{ width: '25px', height: '25px'}}/>
-                      ) : ranks[index] === 3 ? (
-                        <img src={require("assets/img/third.png")} style={{ width: '25px', height: '25px'}}/>
-                      ) : ( ranks[index]
-                      ) }</td>
-                      <td>{bird.rfid}</td>
-                      <td>{bird.band_no}</td>
-                      <td>{bird.species}</td>
-                      <td>{bird.dom_score}</td>
-                      <td>
-                        <Dropdown>
-                          <Dropdown.Toggle
-                            variant="default"
-                            style={{border: "none"}}
-                          >
-                            <div className="logo-img">
-                              <img src={require("assets/img/more.png")} alt="..." />
-                            </div>
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
-                              View
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => handleEdit(bird)}>
-                              Edit
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setShow(true)}>
-                              Delete
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </td>
+            <Card className="card-plain table-plain-bg">
+              <Card.Header>
+                <Card.Title as="h4">Dominance Hierarchy</Card.Title>
+                <p className="card-category">
+                  Currently displaying data from 2021-2022 {/** possible to add metadata so this updates automatically year to year? */}
+                </p> 
+              </Card.Header>
+              <Card.Body className="table-full-width table-responsive px-0">
+                <Table className="table-hover">
+                  <thead>
+                    <tr>
+                      <th className="border-0 caret ">Rank</th>
+                      <th className="border-0">RFID</th>
+                      <th className="border-0">Band No.</th>
+                      <th className="border-0 th-clickable" onClick={() => handleSort('species')}>Species</th>
+                      <th className="border-0">Dom Score</th>
+                      <th className="border-0"></th>
+                      <th className="border-0"></th>
                     </tr>
-                  )
-                )}                   
-              </tbody>
-            </Table>
-          </Card.Body>
-        </Card>
+                  </thead>
+                  <tbody>
+                    {birds.map((bird, index) => (
+                        <tr key={bird.rfid}>
+                          <td>{ranks[index] === 1 ? (
+                            <img src={require("assets/img/first.png")} style={{ width: '25px', height: '25px'}} />
+                          ) : ranks[index] === 2 ? (
+                            <img src={require("assets/img/second.png")} style={{ width: '25px', height: '25px'}}/>
+                          ) : ranks[index] === 3 ? (
+                            <img src={require("assets/img/third.png")} style={{ width: '25px', height: '25px'}}/>
+                          ) : ( ranks[index]
+                          ) }</td>
+                          <td>{bird.rfid}</td>
+                          <td>{bird.band_no}</td>
+                          <td>{bird.species}</td>
+                          <td>{bird.dom_score}</td>
+                          <td>
+                            <Dropdown>
+                              <Dropdown.Toggle
+                                variant="default"
+                                style={{border: "none"}}
+                              >
+                                <div className="logo-img">
+                                  <img src={require("assets/img/more.png")} alt="..." />
+                                </div>
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                              <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
+                                  View
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleEdit(bird, bird.rfid, bird.species)}>
+                                  Edit
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => setShow(true)}>
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </td>
+                        </tr>
+                      )
+                    )}                   
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
       </Container>
 
       {/* Delete Bird Popup*/}
@@ -389,84 +400,82 @@ function Hierarchy() {
             <h3><b style={{ fontWeight: 'bold' }}>Edit Bird?</b></h3>
           </Modal.Title>
         </Modal.Header>
+        {editBird && (
         <Modal.Body>
-    <div>
-      <label htmlFor="rfid">RFID:</label>
-      <input
-        type="text"
-        id="rfid"
-        name="rfid"
-        value={tempEditBird ? tempEditBird.rfid : editBird.rfid}
-        onChange={handleInputChange}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Band No:</label>
-      <input
-        type="text"
-        value={editBird && editBird.band_no}
-        onChange={(e) => setEditBird({ ...editBird, rfid: e.target.value })}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Species:</label>
-      <input
-        type="text"
-        value={tempEditBird ? tempEditBird.species : editBird.species}
-        onChange={handleInputChange}
-        name="species"
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Left Leg:</label>
-      <input
-        type="text"
-        value={editBird && editBird.band_left}
-        onChange={(e) => setEditBird({ ...editBird, species: e.target.value })}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Right Leg:</label>
-      <input
-        type="text"
-        value={editBird && editBird.band_right}
-        onChange={(e) => setEditBird({ ...editBird, species: e.target.value })}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Tarsus:</label>
-      <input
-        type="text"
-        value={captures.tarsus}
-        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Skull:</label>
-      <input
-        type="text"
-        value={captures.skull}
-        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Wing:</label>
-      <input
-        type="text"
-        value={captures.wing}
-        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
-      />
-    </div>
-    <div>
-      <label style={{ fontWeight: 'bold' }}>Body Mass:</label>
-      <input
-        type="text"
-        value={captures.body_mass}
-        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
-      />
-    </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Band No:</label>
+            <input
+              type="text"
+              defaultValue={editBird.band_no}
+              onChange={handleInputChange}
+              name="band_no"
+            />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Species:</label>
+            <input
+              type="text"
+              value={editBird.species}
+              onChange={handleInputChange}
+              name="species"
+            />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Left Leg:</label>
+            <input
+              type="text"
+              value={editBird.band_left}
+              onChange={handleInputChange}
+              name="band_left"
+            />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Right Leg:</label>
+            <input
+              type="text"
+              value={editBird.band_right}
+              onChange={handleInputChange}
+              name="band_right"
+            />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Tarsus:</label>
+            <input
+            type="text"
+            value={editBird.captures.tarsus}
+            onChange={handleInputChange}
+            name="captures.tarsus"
+          />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Skull:</label>
+            <input
+              type="text"
+              value={captures.skull}
+              onChange={handleInputChange}
+              name="captures.skull"
+            />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Wing:</label>
+            <input
+              type="text"
+              value={captures.wing}
+              onChange={handleInputChange}
+              name="captures.wing"
+            />
+          </div>
+          <div>
+            <label style={{ fontWeight: 'bold' }}>Body Mass:</label>
+            <input
+              type="text"
+              value={captures.body_mass}
+              onChange={handleInputChange}
+              name="captures.body_mass"
+            />
+          </div>
     {/* Add more input fields for other attributes */}
-  </Modal.Body>
+  </Modal.Body> )}
         <Modal.Footer>
           <Button className="btn-fill btn-wd" variant="info" onClick={handleSaveChanges} >
             Confirm

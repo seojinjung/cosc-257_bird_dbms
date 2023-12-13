@@ -422,6 +422,19 @@ body > .navbar-collapse{
             text-align: center;
         }
 
+        label{
+            display: inline-block;
+            float: left;
+            clear: left;
+            padding-left: 50px;
+            width: 190px;
+            text-align: left;
+        }
+
+        input {
+            display: inline-block;
+            float: left;
+        }
         
         .modal-title h4{
             margin-top: 10px;

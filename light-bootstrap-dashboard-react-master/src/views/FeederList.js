@@ -95,7 +95,7 @@ function FeederList() {
               <Card.Header>
                 <Card.Title as="h4">List of feeders</Card.Title>
                 <p className="card-category">
-                  Feeder names and locations. Click the options icon on the right of each feeder to view and edit details for that feeder.
+                  Feeder names and locations. Click the options icon to view more details.
                 </p>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
@@ -124,9 +124,6 @@ function FeederList() {
                               <Dropdown.Menu>
                               <Dropdown.Item onClick={() => handleViewShow(feeder.fname, feeder.latitude, feeder.longitude)}>
                                   View
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={(e) => e.preventDefault()}>
-                                  Edit
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
