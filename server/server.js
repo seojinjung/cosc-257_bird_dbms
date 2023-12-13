@@ -118,6 +118,93 @@ app.get("/api/v1/feeders", async (req, res) => {
     
 });
 
+// Get one bird's capture data
+app.get("/api/v1/captures/:rfid", async (req, res) => {
+    try{
+        const results = await db.query("select * from captures where rfid = $1", [req.params.rfid]);
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                captures: results.rows[0],
+            },
+        });
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
+// get a feeder's total visits from the scores table
+app.get("/api/v1/scores/:fname", async (req, res) => {
+    try{
+        const results = await db.query("select count(*) as total from scores where fname = $1", [req.params.fname]);
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                scores: results.rows[0],
+            },
+        });
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
+// // get a feeder's visits from the last 30 days
+// app.get("/api/v1/scores/:feeder", async (req, res) => {
+//     const {param} = req.query;
+//     try{
+//         const results = await db.query("select count(*) as thirty from scores where feeder = $1 and date >= current_date - interval '30 days'", [req.params.feeder]);
+
+//         res.status(200).json({
+//             status: "success",
+//             data: {
+//                 scores: results.rows[0],
+//             },
+//         });
+//     } catch(err) {
+//         console.log(err);
+//     }
+
+// });
+
+// // get a feeder's most frequent visitors
+// app.get("/api/v1/scores/:feeder", async (req, res) => {
+//     try{
+//         const results = await db.query("select count(*) as most from scores where feeder = $1", [req.params.feeder]);
+
+//         res.status(200).json({
+//             status: "success",
+//             data: {
+//                 scores: results.rows[0],
+//             },
+//         });
+//     } catch(err) {
+//         console.log(err);
+//     }
+
+// });
+
+// // get a feeder's least frequent visitors
+// app.get("/api/v1/scores/:feeder", async (req, res) => {
+//     try{
+//         const results = await db.query("select count(*) as most from scores where feeder = $1", [req.params.feeder]);
+
+//         res.status(200).json({
+//             status: "success",
+//             data: {
+//                 scores: results.rows[0],
+//             },
+//         });
+//     } catch(err) {
+//         console.log(err);
+//     }
+
+// });
+
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Server is up and listening on port ${port}`);
