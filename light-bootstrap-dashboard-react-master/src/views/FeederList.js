@@ -164,18 +164,18 @@ function FeederList() {
             <thead>
               <tr class="same-col-widths text-align: left">
                 <th className="border-0">Total visits</th>
-                <th className="border-0">Visits in last 30 days</th>
+                {/* <th className="border-0">Visits in last 30 days</th>
                 <th className="border-0">Most frequently visiting species</th>
-                <th className="border-0">Least frequently visiting species</th>
+                <th className="border-0">Least frequently visiting species</th> */}
               </tr>
             </thead>
             {scores && (
               <tbody>
                 <tr key={scores.id}>
+                  <td>{scores.total}</td>
+                  {/* <td>{}</td>
                   <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{}</td> */}
                 </tr>                     
               </tbody>
             )}
