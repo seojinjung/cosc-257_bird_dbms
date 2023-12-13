@@ -7,8 +7,11 @@ Our customer is Ethan Clotfelter, a Professor of Biology and Environmental Studi
 * React/Bootstrap
 ### Backend
 * PostgreSQL
-* Django
+* pgAdmin 4
 * Postman
+* Python
+* Express
+* Node.js
 
 ## Contributors
 * Adam Blumoff (@adamblumoff)
