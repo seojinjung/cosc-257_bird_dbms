@@ -2,8 +2,8 @@ import React, {useContext, useEffect} from "react";
 import { useState } from 'react';
 import FeederFinder from "apis/FeederFinder";
 import { FeederContext } from "context/FeederContext";
-import ScoreFinder from "apis/ScoreFinder";
-import { ScoreContext } from "context/ScoreContext";
+// import ScoreFinder from "apis/ScoreFinder";
+// import { ScoreContext } from "context/ScoreContext";
 
 // react-bootstrap components
 import {
@@ -21,27 +21,39 @@ import {
 } from "react-bootstrap";
 
 function FeederList() {
-  // feeder and visit info
+  // feeder and visit/score info
   const {feeders, setFeeders} = useContext(FeederContext);
-  const {scores, setScores} = useContext(ScoreContext);
+  // const {scores, setScores} = useContext(ScoreContext);
   
   const [fname, setFname] = useState(null);
-  const [feederShow, setFeederShow] = useState(false);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const [totalVisits, setTotalVisits] = useState(null);
   const [thirtyDays, setThirtyDays] = useState(null);
   const [mostVisits, setMostVisits] = useState(null);
   const [leastVisits, setLeastVisits] = useState(null);
+  const [show, setShow] = useState(false);
+  const [feederShow, setFeederShow] = useState(false);
 
   const handleClose = () => setFeederShow(false);
 
-  const handleViewShow = async(fname, totalVisits, thirtyDays, mostVisits, leastVisits) => {
+  const handleViewShow = async(fname, latitude, longitude, totalVisits, thirtyDays, mostVisits, leastVisits) => {
     setFname(fname);
+    setLatitude(latitude);
+    setLongitude(longitude);
     setTotalVisits(totalVisits);
     setThirtyDays(thirtyDays);
     setMostVisits(mostVisits);
     setLeastVisits(leastVisits);
     setFeederShow(true);
   }
+
+  useEffect(() => {
+    if (fname !== null) {
+      // fetch visit data if fname is not null
+      fetchVisitData(fname)
+    }
+  }, [fname]);
 
   const fetchVisitData = async (fname) => {
     try {
@@ -100,7 +112,7 @@ function FeederList() {
                                 </div>
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                              <Dropdown.Item onClick={() => handleViewShow(feeder.fname)}>
+                              <Dropdown.Item onClick={() => handleViewShow(feeder.fname, feeder.latitude, feeder.longitude)}>
                                   View
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={(e) => e.preventDefault()}>
@@ -125,29 +137,34 @@ function FeederList() {
       show={feederShow} 
       onHide={() => setFeederShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>{fname}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-                <div class="image-cropper">
+          <Modal.Title>
+            <h3> <b style={{ fontWeight: 'bold' }}>{fname}</b></h3>
+            <h4> <i>{latitude}, {longitude}</i></h4>
+          </Modal.Title>
+          <div class="image-cropper">
                     <img
                       src={require("assets/img/feeder.png")}
+                      style={{width: 180, height: 180, float: 'right'}}
                     ></img>
                 </div>
+        </Modal.Header>
+        <Modal.Body>
                 <Table className="table-hover table-fixed">
                   <thead>
                     <tr class="same-col-widths text-align: left">
-                      <th className="border-0">Location</th>
                       <th className="border-0">Total visits</th>
                       <th className="border-0">Visits in last 30 days</th>
                       <th className="border-0">Most frequently visiting species</th>
                       <th className="border-0">Least frequently visiting species</th>
                     </tr>
                   </thead>
-                  <tbody>
-                        <tr>
-                          
-                        </tr>                     
-                  </tbody>
+                  {scores && (
+                    <tbody>
+                          <tr key={scores.id}>
+                            <td></td>
+                          </tr>                     
+                    </tbody>
+                  )}
                 </Table>
               </Modal.Body>
         <Modal.Footer>

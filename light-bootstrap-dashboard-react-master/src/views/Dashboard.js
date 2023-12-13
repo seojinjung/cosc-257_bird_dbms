@@ -4,6 +4,7 @@ import BirdFinder from "apis/BirdFinder";
 import { BirdsContext } from "context/BirdsContext";
 import CaptureFinder from "apis/CaptureFinder";
 import { CapturesContext } from "context/CaptureContext";
+import Calendar from 'react-calendar';
 
 // react-bootstrap components
 import {
@@ -15,9 +16,10 @@ import {
   Dropdown,
 } from "react-bootstrap";
 
-
-
 function Hierarchy() {
+  // calendar
+  const [date, setDate] = useState(new Date());
+
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
   const {captures, setCaptures} = useContext(CapturesContext)
@@ -174,6 +176,20 @@ function Hierarchy() {
   return (
     <>
       <Container fluid>
+        <Card className='card-plain'>
+          <Card.Header>
+            <Card.Title as="h4">Calendar</Card.Title>
+            <Card.Body>
+            <div className='calendar-container'>
+              <Calendar onChange={setDate} value={date} />
+            </div>
+            <p className='text-center'>
+              <span className='bold'>Selected Date:</span>{' '}
+              {date.toDateString()}
+            </p>
+            </Card.Body>
+          </Card.Header>
+        </Card>
             <Card className="card-plain table-plain-bg">
               <Card.Header>
                 <Card.Title as="h4">Dominance Hierarchy</Card.Title>

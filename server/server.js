@@ -143,7 +143,7 @@ app.get("/api/v1/scores/:fname", async (req, res) => {
         res.status(200).json({
             status: "success",
             data: {
-                scores: results.rows[0],
+                scores: results.rows,
             },
         });
     } catch(err) {
