@@ -16,24 +16,23 @@
 
 */
 import Hierarchy from "views/Dashboard.js";
-import TableList from "views/TableList.js";
+import FeederList from "views/FeederList.js";
 
 const dashboardRoutes = [
   {
     path: "/hierarchy",
     name: "Hierarchy",
-    icon: "nc-icon nc-chart-pie-35",
+    icon: "nc-icon nc-chart-bar-32",
     component: Hierarchy,
-    layout: "/admin"
+    layout: "/main"
   },
   {
-    path: "/tables",
-    name: "Tables",
-    icon: "nc-icon nc-notes",
-    component: TableList,
-    layout: "/admin"
+    path: "/feeders",
+    name: "Feeders",
+    icon: "nc-icon nc-map-big", // nc-notes was the old one; still deciding
+    component: FeederList,
+    layout: "/main"
   },
-
 ];
 
 export default dashboardRoutes;

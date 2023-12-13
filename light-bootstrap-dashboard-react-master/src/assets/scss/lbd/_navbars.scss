@@ -220,10 +220,8 @@
 
     .btn-default{
         color: $white-color;
-        border-color: $white-color;
     }
     .btn-default.btn-fill{
-        color: $dark-gray;
         background-color: $white-color;
         @include opacity(.9);
     }
