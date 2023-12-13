@@ -135,15 +135,15 @@ app.get("/api/v1/captures/:rfid", async (req, res) => {
 
 });
 
-// get a feeder's visit data from the scores table
-app.get("/api/v1/scores/:fname", async (req, res) => {
+// get a feeder's total visits from the scores table
+app.get("/api/v1/scores/:feeder", async (req, res) => {
     try{
-        const results = await db.query("select * from scores where fname = $1", [req.params.fname]);
+        const results = await db.query("select count(*) from scores where feeder = $1", [req.params.feeder]);
 
         res.status(200).json({
             status: "success",
             data: {
-                scores: results.rows,
+                scores: results.rows[0],
             },
         });
     } catch(err) {
