@@ -33,7 +33,7 @@ function FeederList() {
       <Container fluid>
         <Row>
           <Col md="12">
-            <Card className="feeder-table">
+            <Card className="card-plain table-plain-bg">
               <Card.Header>
                 <Card.Title as="h4">List of feeders</Card.Title>
                 <p className="card-category">

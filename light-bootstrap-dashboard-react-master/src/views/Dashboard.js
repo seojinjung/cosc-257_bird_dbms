@@ -22,7 +22,13 @@ function Hierarchy() {
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
   const {captures, setCaptures} = useContext(CapturesContext)
-  
+  const [ranks, setRanks] = useState([]);
+
+  // Sorting by columns
+  const [sortBy, setSortBy] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
+
+  // Some information we need to send to the pop-up boxes
   const [rfid, setRFID] = useState(null);
   const [species, setSpecies] = useState(null);
   const [lband, setLBand] = useState(null);
@@ -30,19 +36,89 @@ function Hierarchy() {
   const [bandno, setBandNo] = useState(null);
   const [notes, setNotes] = useState(null);
   const [show, setShow] = useState(false);
-  const [BirdShow, setBirdShow] = useState(false);
-
   
+  // Handling pop-up boxes
   const handleClose = () => setShow(false);
+  const [BirdShow, setBirdShow] = useState(false);
+  const [editBird, setEditBird] = useState(null);
+  const [editShow, setEditShow] = useState(false);
 
+  // ----------------------------------------------------------------------------
+  // Get all Bird Info
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        const response = await BirdFinder.get("/");
+        setBirds(response.data.data.birds)
+      } catch(err) {}
+    }
+    fetchData();
+  }, []);
+
+  // ----------------------------------------------------------------------------
+  // Get a specific bird's info when 'viewed'.
   useEffect(() => {
     if (rfid !== null && species !== null) {
-      // Your logic here that you want to execute when rfid and species change
       // This code will run when both rfid and species are not null
       fetchCaptureData(rfid, species);
     }
   }, [rfid, species]);
 
+  // ----------------------------------------------------------------------------
+  // Initialize ranks based on birds data
+  useEffect(() => {
+    const initializeRanks = () => {
+      if (birds.length > 0 && ranks.length === 0) {
+        const initialRanks = Array.from({ length: birds.length }, (_, index) => index + 1);
+        setRanks(initialRanks);
+      }
+    };
+  
+    // Call the function to initialize ranks
+    initializeRanks();
+  }, [birds, ranks]);
+
+  // ----------------------------------------------------------------------------
+  // Make sure the rankings stay the same after columns are sorted.
+  const handleSort = (columnName) => {
+    const order = sortBy === columnName && sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortBy(columnName);
+    setSortOrder(order);
+  
+    // Step 1: Add an index property to each bird object
+    const birdsWithIndex = birds.map((bird, index) => ({ ...bird, index }));
+  
+    // Step 2: Sort the birds array while retaining the original order for equal species
+    const sortedBirds = birdsWithIndex.sort((a, b) => {
+      if (a[columnName] === b[columnName]) {
+        return a.index - b.index; // Retain original order if species values are equal
+      }
+      if (typeof a[columnName] === 'string' && typeof b[columnName] === 'string'){
+        if (order === 'asc') {
+          return a[columnName].localeCompare(b[columnName]);
+        } else {
+          return b[columnName].localeCompare(a[columnName]);
+        }
+      } else {
+        if (order === 'asc') {
+          return a[columnName] - b[columnName]; // Compare numeric values directly for ascending order
+        } else {
+          return b[columnName] - a[columnName]; // Compare numeric values directly for descending order
+        }
+      }
+    });
+  
+    // Step 3: Update the state with the sorted birds without the index property
+    setBirds(sortedBirds.map(bird => ({ ...bird, index: undefined })));
+  
+    // Step 4: Update the ranks state based on the sorted indexes
+    const sortedIndexes = sortedBirds.map(bird => bird.index);
+    const newRanks = sortedIndexes.map(index => ranks[index]);
+    setRanks(newRanks);
+  };  
+
+  // ----------------------------------------------------------------------------
+  // Make a View pop-up box show up!
   const handleViewShow = async(rfid, species, lband, rband, bandno, notes) => {
     setRFID(rfid);
     setSpecies(species);
@@ -52,7 +128,25 @@ function Hierarchy() {
     setNotes(notes);
     setBirdShow(true);
   };
+
+  const handleCloseViewModal = () => {
+    setBirdShow(false);
+  };
   
+  // ----------------------------------------------------------------------------
+  // Make an Edit pop-up box show up!
+  const handleEdit = (bird) => {
+    setEditBird(bird);
+    setEditShow(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditBird(null);
+    setEditShow(false);
+  };
+
+  // ----------------------------------------------------------------------------
+  // Grab data from captures
   const fetchCaptureData = async (rfid, species) => {
     try {
       const response = await CaptureFinder.get(`/${rfid}`);
@@ -64,17 +158,8 @@ function Hierarchy() {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async() => {
-      try{
-        const response = await BirdFinder.get("/");
-        setBirds(response.data.data.birds)
-      } catch(err) {}
-    }
-    fetchData();
-  }, []);
-
-
+  // ----------------------------------------------------------------------------
+  // Handle deleting a bird from the database. 
   const handleDelete = async(rfid) => {
     try {
       const response = await BirdFinder.delete(`/${rfid}`);
@@ -101,20 +186,26 @@ function Hierarchy() {
                 <Table className="table-hover">
                   <thead>
                     <tr>
-                      <th className="border-0">Rank</th>
+                      <th className="border-0 caret ">Rank</th>
                       <th className="border-0">RFID</th>
                       <th className="border-0">Band No.</th>
-                      <th className="border-0">Species</th>
-                      <th className="border-0">Dominance Score</th>
+                      <th className="border-0 th-clickable" onClick={() => handleSort('species')}>Species</th>
+                      <th className="border-0">Dom Score</th>
                       <th className="border-0"></th>
                       <th className="border-0"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {birds.map(bird => {
-                      return(
-                        <tr>
-                          <td>{1}</td>
+                    {birds.map((bird, index) => (
+                        <tr key={bird.rfid}>
+                          <td>{ranks[index] === 1 ? (
+                            <img src={require("assets/img/first.png")} style={{ width: '25px', height: '25px'}} />
+                          ) : ranks[index] === 2 ? (
+                            <img src={require("assets/img/second.png")} style={{ width: '25px', height: '25px'}}/>
+                          ) : ranks[index] === 3 ? (
+                            <img src={require("assets/img/third.png")} style={{ width: '25px', height: '25px'}}/>
+                          ) : ( ranks[index]
+                          ) }</td>
                           <td>{bird.rfid}</td>
                           <td>{bird.band_no}</td>
                           <td>{bird.species}</td>
@@ -133,7 +224,7 @@ function Hierarchy() {
                               <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
                                   View
                                 </Dropdown.Item>
-                                <Dropdown.Item onClick={(e) => e.preventDefault()}>
+                                <Dropdown.Item onClick={() => handleEdit(bird)}>
                                   Edit
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={() => setShow(true)}>
@@ -143,18 +234,18 @@ function Hierarchy() {
                             </Dropdown>
                           </td>
                         </tr>
-                      );
-                    })}                     
+                      )
+                    )}                   
                   </tbody>
                 </Table>
               </Card.Body>
             </Card>
       </Container>
 
-
+      {/* Delete Bird Popup*/}
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete bird?</Modal.Title>
+          <Modal.Title> <b style={{ fontWeight: 'bold' }}>Delete Bird?</b></Modal.Title>
         </Modal.Header>
         <Modal.Body>This action will delete this bird and its associated information from the database.</Modal.Body>
         <Modal.Footer>
@@ -167,10 +258,11 @@ function Hierarchy() {
         </Modal.Footer>
       </Modal>
 
+      {/* View Bird Popup*/}
       <Modal
       size="lg" 
       show={BirdShow} 
-      onHide={() => setBirdShow(false)}
+      onHide={handleCloseViewModal}
       centered="true"
       animation="true">
         <Modal.Header closeButton>
@@ -231,7 +323,30 @@ function Hierarchy() {
                 <i className="subtext">Notes: {notes}</i>
                   )}
               </Modal.Body>
+      </Modal>
+
+       {/*Edit Bird Popup*/}
+      <Modal 
+      show={editShow} 
+      onHide={handleCloseEditModal}
+      centered="true"
+      animation="true">
+         <Modal.Header closeButton>
+          <Modal.Title>
+            <h3><b style={{ fontWeight: 'bold' }}>Edit Bird?</b> <i>{editBird && editBird.rfid}</i></h3>
+            <h4><b style={{ fontWeight: 'bold' }}>Band No.</b> <i>{editBird && editBird.band_no}</i></h4>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <input type="text" value={editBird && editBird.species} />
+        </Modal.Body>
         <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseEditModal}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => handleSaveChanges(editBird)}>
+            Save Changes
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

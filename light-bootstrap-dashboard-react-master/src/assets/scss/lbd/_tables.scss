@@ -24,10 +24,19 @@
        vertical-align: middle;
    }
 
+   .th-clickable {
+    cursor: pointer;
+  }
+  
+  .th-clickable:hover {
+    background-color: lightgray;
+  }
+
    tr.same-col-widths th {
     width: 9%;
     text-align: center;
   }
+  
 
     > thead > tr > th{
         border-bottom-width: 1px;
