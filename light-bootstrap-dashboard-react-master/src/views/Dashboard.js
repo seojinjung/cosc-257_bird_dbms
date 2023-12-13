@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import { useState } from 'react';
 import BirdFinder from "apis/BirdFinder";
-import { BirdsContext } from "context/BirdsContext";
+import { BirdsContext } from "context/BirdsContext.js";
 import CaptureFinder from "apis/CaptureFinder";
 import { CapturesContext } from "context/CaptureContext";
 
@@ -39,8 +39,16 @@ function Hierarchy() {
   // Handling pop-up boxes
   const handleClose = () => setShow(false);
   const [BirdShow, setBirdShow] = useState(false);
-  const [editBird, setEditBird] = useState(null);
   const [editShow, setEditShow] = useState(false);
+
+  const [tempEditBird, setTempEditBird] = useState(null);
+  const [editBird, setEditBird] = useState({
+    rfid: '',
+    band_no: '',
+    species: '',
+    tarsus: ''
+  });
+ 
 
   // ----------------------------------------------------------------------------
   // Get all Bird Info
@@ -135,6 +143,8 @@ function Hierarchy() {
   // ----------------------------------------------------------------------------
   // Make an Edit pop-up box show up!
   const handleEdit = (bird) => {
+    setRFID(bird.rfid);
+    setSpecies(bird.species);
     setEditBird(bird);
     setEditShow(true);
   };
@@ -144,13 +154,47 @@ function Hierarchy() {
     setEditShow(false);
   };
 
+  const handleInputChange = (e) => {
+    setTempEditBird({ ...tempEditBird, [e.target.name]: e.target.value });
+  };
+
+  const updateBirdInfo = async (rfid, updatedInfo) => {
+    try {
+      // Make an API call to update the bird's information
+      const response = await BirdFinder.put(`/birds/update/${rfid}`, updatedInfo);
+      // Handle the response or perform actions after the update if needed
+      console.log('Bird information updated:', response.data);
+      // You can setBirds or perform any other actions here after successful update
+    } catch (error) {
+      // Handle errors or display an error message to the user
+      console.error('Failed to update bird information:', error.message);
+    }
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      if (tempEditBird && editBird.rfid) {
+        // Call updateBirdInfo function with the bird's RFID and updated information
+        await updateBirdInfo(editBird.rfid, tempEditBird);
+        // Close the edit modal or perform any other actions after successful update
+        handleCloseEditModal();
+      } else {
+        console.error('Invalid editBird state');
+      }
+    } catch (error) {
+      // Handle errors or display an error message to the user if needed
+      console.error('Failed to save changes:', error.message);
+    }
+  };
+  
+  
+
   // ----------------------------------------------------------------------------
   // Grab data from captures
   const fetchCaptureData = async (rfid, species) => {
     try {
       const response = await CaptureFinder.get(`/${rfid}`);
       setCaptures(response.data.data.captures);
-      setBirdShow(true);
       // Other logic based on fetched data
     } catch (err) {
       // Handle error if needed
@@ -332,19 +376,93 @@ function Hierarchy() {
       animation="true">
          <Modal.Header closeButton>
           <Modal.Title>
-            <h3><b style={{ fontWeight: 'bold' }}>Edit Bird?</b> <i>{editBird && editBird.rfid}</i></h3>
-            <h4><b style={{ fontWeight: 'bold' }}>Band No.</b> <i>{editBird && editBird.band_no}</i></h4>
+            <h3><b style={{ fontWeight: 'bold' }}>Edit Bird?</b></h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <input type="text" value={editBird && editBird.species} />
-        </Modal.Body>
+    <div>
+      <label htmlFor="rfid">RFID:</label>
+      <input
+        type="text"
+        id="rfid"
+        name="rfid"
+        value={tempEditBird ? tempEditBird.rfid : editBird.rfid}
+        onChange={handleInputChange}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Band No:</label>
+      <input
+        type="text"
+        value={editBird && editBird.band_no}
+        onChange={(e) => setEditBird({ ...editBird, rfid: e.target.value })}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Species:</label>
+      <input
+        type="text"
+        value={tempEditBird ? tempEditBird.species : editBird.species}
+        onChange={handleInputChange}
+        name="species"
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Left Leg:</label>
+      <input
+        type="text"
+        value={editBird && editBird.band_left}
+        onChange={(e) => setEditBird({ ...editBird, species: e.target.value })}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Right Leg:</label>
+      <input
+        type="text"
+        value={editBird && editBird.band_right}
+        onChange={(e) => setEditBird({ ...editBird, species: e.target.value })}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Tarsus:</label>
+      <input
+        type="text"
+        value={captures.tarsus}
+        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Skull:</label>
+      <input
+        type="text"
+        value={captures.skull}
+        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Wing:</label>
+      <input
+        type="text"
+        value={captures.wing}
+        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
+      />
+    </div>
+    <div>
+      <label style={{ fontWeight: 'bold' }}>Body Mass:</label>
+      <input
+        type="text"
+        value={captures.body_mass}
+        onChange={(e) => setEditBird({ ...editBird, tarsus: e.target.value })}
+      />
+    </div>
+    {/* Add more input fields for other attributes */}
+  </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEditModal}>
-            Cancel
+          <Button className="btn-fill btn-wd" variant="info" onClick={handleSaveChanges} >
+            Confirm
           </Button>
-          <Button variant="primary" onClick={() => handleSaveChanges(editBird)}>
-            Save Changes
+          <Button variant="info" onClick={handleCloseEditModal}>
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>
