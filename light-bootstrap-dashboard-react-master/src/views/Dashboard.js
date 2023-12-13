@@ -5,6 +5,7 @@ import { BirdsContext } from "context/BirdsContext";
 import CaptureFinder from "apis/CaptureFinder";
 import { CapturesContext } from "context/CaptureContext";
 import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css'
 
 // react-bootstrap components
 import {
@@ -176,85 +177,78 @@ function Hierarchy() {
   return (
     <>
       <Container fluid>
-        <Card className='card-plain'>
+        {/* <div className='calendar-container'>
+          <h4>Calendar</h4>
+          <Calendar onChange={setDate} value={date} />
+        </div>
+        <p className='text-left'>
+          <span className='bold'>Selected Date: </span>{date.toDateString()}
+        </p> */}
+        <Card className="card-plain table-plain-bg">
           <Card.Header>
-            <Card.Title as="h4">Calendar</Card.Title>
-            <Card.Body>
-            <div className='calendar-container'>
-              <Calendar onChange={setDate} value={date} />
-            </div>
-            <p className='text-center'>
-              <span className='bold'>Selected Date:</span>{' '}
-              {date.toDateString()}
-            </p>
-            </Card.Body>
+            <Card.Title as="h4">Dominance Hierarchy</Card.Title>
+            <p className="card-category">
+              Currently displaying data from 2021-2022 {/** possible to add metadata so this updates automatically year to year? */}
+            </p> 
           </Card.Header>
-        </Card>
-            <Card className="card-plain table-plain-bg">
-              <Card.Header>
-                <Card.Title as="h4">Dominance Hierarchy</Card.Title>
-                <p className="card-category">
-                  Currently displaying data from 2021-2022 {/** possible to add metadata so this updates automatically year to year? */}
-                </p> 
-              </Card.Header>
-              <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover">
-                  <thead>
-                    <tr>
-                      <th className="border-0 caret ">Rank</th>
-                      <th className="border-0">RFID</th>
-                      <th className="border-0">Band No.</th>
-                      <th className="border-0 th-clickable" onClick={() => handleSort('species')}>Species</th>
-                      <th className="border-0">Dom Score</th>
-                      <th className="border-0"></th>
-                      <th className="border-0"></th>
+          <Card.Body className="table-full-width table-responsive px-0">
+            <Table className="table-hover">
+              <thead>
+                <tr>
+                  <th className="border-0 caret ">Rank</th>
+                  <th className="border-0">RFID</th>
+                  <th className="border-0">Band No.</th>
+                  <th className="border-0 th-clickable" onClick={() => handleSort('species')}>Species</th>
+                  <th className="border-0">Dom Score</th>
+                  <th className="border-0"></th>
+                  <th className="border-0"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {birds.map((bird, index) => (
+                    <tr key={bird.rfid}>
+                      <td>{ranks[index] === 1 ? (
+                        <img src={require("assets/img/first.png")} style={{ width: '25px', height: '25px'}} />
+                      ) : ranks[index] === 2 ? (
+                        <img src={require("assets/img/second.png")} style={{ width: '25px', height: '25px'}}/>
+                      ) : ranks[index] === 3 ? (
+                        <img src={require("assets/img/third.png")} style={{ width: '25px', height: '25px'}}/>
+                      ) : ( ranks[index]
+                      ) }</td>
+                      <td>{bird.rfid}</td>
+                      <td>{bird.band_no}</td>
+                      <td>{bird.species}</td>
+                      <td>{bird.dom_score}</td>
+                      <td>
+                        <Dropdown>
+                          <Dropdown.Toggle
+                            variant="default"
+                            style={{border: "none"}}
+                          >
+                            <div className="logo-img">
+                              <img src={require("assets/img/more.png")} alt="..." />
+                            </div>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                          <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
+                              View
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleEdit(bird)}>
+                              Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => setShow(true)}>
+                              Delete
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {birds.map((bird, index) => (
-                        <tr key={bird.rfid}>
-                          <td>{ranks[index] === 1 ? (
-                            <img src={require("assets/img/first.png")} style={{ width: '25px', height: '25px'}} />
-                          ) : ranks[index] === 2 ? (
-                            <img src={require("assets/img/second.png")} style={{ width: '25px', height: '25px'}}/>
-                          ) : ranks[index] === 3 ? (
-                            <img src={require("assets/img/third.png")} style={{ width: '25px', height: '25px'}}/>
-                          ) : ( ranks[index]
-                          ) }</td>
-                          <td>{bird.rfid}</td>
-                          <td>{bird.band_no}</td>
-                          <td>{bird.species}</td>
-                          <td>{bird.dom_score}</td>
-                          <td>
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                variant="default"
-                                style={{border: "none"}}
-                              >
-                                <div className="logo-img">
-                                  <img src={require("assets/img/more.png")} alt="..." />
-                                </div>
-                              </Dropdown.Toggle>
-                              <Dropdown.Menu>
-                              <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
-                                  View
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={() => handleEdit(bird)}>
-                                  Edit
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={() => setShow(true)}>
-                                  Delete
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </td>
-                        </tr>
-                      )
-                    )}                   
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Card>
+                  )
+                )}                   
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
       </Container>
 
       {/* Delete Bird Popup*/}

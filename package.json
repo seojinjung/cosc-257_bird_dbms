@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
-    "react-calendar": "^4.7.0"
+    "react-calendar": "^4.7.0",
+    "typescript": "^5.3.3"
   }
 }
