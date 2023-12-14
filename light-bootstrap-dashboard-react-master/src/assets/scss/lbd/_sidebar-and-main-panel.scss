@@ -366,6 +366,8 @@ body > .navbar-collapse{
 }
 
 .modal{
+    position: absolute;
+
     &.show{
         .modal-dialog{
             -webkit-transform: translate(0, 30%);
@@ -379,6 +381,11 @@ body > .navbar-collapse{
             margin: 0 auto;
         }
     }
+
+    .subtext{
+        color: rgb(122, 122, 122);
+    }
+
     .modal-content{
         .modal-header{
             border-bottom: none;
@@ -386,6 +393,10 @@ body > .navbar-collapse{
             padding-right: 24px;
             padding-bottom: 0;
             padding-left: 24px;
+            width: 100% !important;
+            background-color: #865cb0;
+            position: relative;
+            color: white;
 
             .modal-profile{
                 width: 80px;
@@ -405,10 +416,38 @@ body > .navbar-collapse{
         .modal-body{
             padding-top: 24px;
             padding-right: 24px;
-            padding-bottom: 16px;
+            padding-bottom: 24px;
             padding-left: 24px;
             line-height: 1.9;
+            text-align: center;
         }
+
+        
+        .modal-title h4{
+            margin-top: 10px;
+            margin-left: 0px;
+            margin-bottom: 24px;
+        }
+
+        .modal-title h3{
+            margin-top: 0px;
+        }
+
+        .image-cropper {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 200;
+          }
+          
+          img {
+            display: inline;
+            height: 100%;
+            width: auto;
+          }
 
         .modal-body + .modal-footer{
             padding-top: 0;
