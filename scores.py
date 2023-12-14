@@ -9,8 +9,13 @@ import psycopg2
 import re
 from sqlalchemy import create_engine
 
+
+
+
+
 #Define method to remove hyphens
 def remove_hyphens(input_string):
+    
     # Use the re.sub() function to replace hyphens with an empty string
     result_string = re.sub(r'-', '', str(input_string), count = 4)
     return result_string
@@ -22,16 +27,17 @@ warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning
   
 # Folder Path: **CHANGE FOR WHATEVER FOLDER YOU ARE USING**
 
-path = r"C:\Users\JackB\Downloads\Bird feeder data 2022-2023\Bird feeder data 2022-2023"
+path = r"C:\Users\sambl\Dropbox\PC\Downloads\Bird feeder data 2022-2023-20231213T004930Z-001\Bird feeder data 2022-2023"
   
 # Change the directory 
 
 os.chdir(path) 
   
-# Read text File 
+# output text File 
 output = 'output.txt'
-#Operation to read the text files
 
+
+#Operation to read the text files
 def read_text_file(file_path): 
     text = b'R'
     with open(file_path, 'rb') as file_in:
@@ -41,13 +47,12 @@ def read_text_file(file_path):
             )
 
    
-
+#Initializes final dataframe
 df_sql = pd.DataFrame()
+
 #Iterate through all files in our folder
 for folder in os.listdir():
-    print(folder)
     newpath = path + "\\" + folder
-    print(newpath)
     os.chdir(newpath)
     
 
@@ -58,12 +63,11 @@ for folder in os.listdir():
         
         if file.endswith(".txt"): 
             file_path = f"{newpath}\{file}"  
-            # call read text file function 
             
+            # call read text file function 
             read_text_file(file_path)
 
         Feeder_name = re.sub(r'[^a-zA-Z]', '', os.path.basename(os.path.dirname(file_path)))
-        print(Feeder_name)
             
 
 
@@ -76,7 +80,6 @@ for folder in os.listdir():
         df["score"] = 0
         df['feeder'] = Feeder_name
         del df['n/a']
-        #del df['date']
         del df['time']
         del df['feed #'] 
 
@@ -124,19 +127,29 @@ for folder in os.listdir():
                 
                     if(bird2_rfid==bird2_dep_rfid and dep_time<=5):
                         df["score"][ind+1] = 1
+        
+        #Gets date date column to a date variable
+        df['date'] = pd.to_datetime(df['date'], format='%Y/%m/%d',errors='coerce')
 
+        #Gets final dataframe for specific file
         df_final = df[['rfid', 'score', 'date', 'feeder']]
-        df_sql = pd.concat([df_final, df_sql], ignore_index=True)
-#df_final = df_final.groupby('rfid').sum().reset_index()
 
-    
-"""
+        #Adds file dataframe to total dataframe
+        df_sql = pd.concat([df_final, df_sql], ignore_index=True)
+
+
+
+#Puts data into pgadmin
 conn_string = 'postgresql://postgres:bc-chickadee@cosc-257-node06.cs.amherst.edu/bird_db'
 
-     
 engine = create_engine(conn_string)
 
 df_sql.to_sql('scores', engine, if_exists='replace', index = False)
+
+
+
+
+#For debugging
 """
 if not df_sql.empty:
     #Converts to html file for viewing
@@ -152,7 +165,7 @@ if not df_sql.empty:
 
     webbrowser.open('scores.html') 
 
-
+"""
 
 
     
