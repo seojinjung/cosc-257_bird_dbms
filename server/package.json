@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "client-install": "npm install --prefix client",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "forever start index.js",
+    "server": "nodemon index.js",
+    "client": "cd ../ && npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
