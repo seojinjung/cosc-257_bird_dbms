@@ -186,11 +186,25 @@ function Hierarchy() {
         <Card className="card-plain table-plain-bg">
           <Card.Header>
             <Card.Title as="h4">Dominance Hierarchy</Card.Title>
-            <div style={{ display: 'in-line flex'}}> <p className="card-category">
-              Currently displaying data from:
-              <Form.Control style={{ width: '15%'}} type="date" /> to
-            <Form.Control style={{ width: '15%'}} type="date" />
-            </p> 
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+              <p className="card-category">Currently displaying data from:</p>
+              <Form.Control
+                style={{ width: '125px', height: '30px', marginLeft: '10px', marginRight: '10px' }}
+                size="sm"
+                type="date"
+                min="2017-04-01"
+                max="2024-04-29"
+                defaultValue="2017-04-01"
+              />
+              <p className="card-category">to</p>
+              <Form.Control
+                style={{ width: '125px', height: '30px', marginLeft: '10px' }}
+                size="sm"
+                type="date"
+                min="2017-04-01"
+                max="2024-04-29"
+                defaultValue="2024-04-29"
+              />
             </div>
           </Card.Header>
           <Card.Body className="table-full-width table-responsive px-0">

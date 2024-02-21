@@ -5,9 +5,8 @@
   "main": "index.js",
   "client-install": "npm install --prefix client",
   "scripts": {
-    "start": "forever start index.js",
-    "server": "nodemon index.js",
-    "client": "cd ../ && npm start --prefix client",
+    "server": "forever start index.js",
+    "client": "cd ../ && npm forever start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],

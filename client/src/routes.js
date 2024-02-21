@@ -17,6 +17,7 @@
 */
 import Hierarchy from "views/Dashboard.js";
 import FeederList from "views/FeederList.js";
+import Configure from "views/Configure.js";
 
 const dashboardRoutes = [
   {
@@ -31,6 +32,13 @@ const dashboardRoutes = [
     name: "Feeders",
     icon: "nc-icon nc-map-big", // nc-notes was the old one; still deciding
     component: FeederList,
+    layout: "/main"
+  },
+  {
+    path: "/config",
+    name: "Configure",
+    icon: "nc-icon nc-settings-gear-64", 
+    component: Configure,
     layout: "/main"
   },
 ];

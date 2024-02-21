@@ -25,9 +25,7 @@ class Footer extends Component {
         <Container fluid>
           <nav>
             <p className="copyright text-center">
-              © {new Date().getFullYear()}{" "}
-              <a href="http://www.creative-tim.com">Creative Tim</a>, made with
-              love for a better web
+            <img style={{marginRight:'10px'}} src={require("assets/img/email.png")}/> edclotfelter@amherst.edu
             </p>
           </nav>
         </Container>
