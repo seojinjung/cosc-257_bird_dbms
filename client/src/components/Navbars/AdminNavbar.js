@@ -69,7 +69,7 @@ function Header() {
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto" navbar>
-            <Nav.Item>
+            {/*<Nav.Item>
               <Nav.Link
                 className="m-0"
                 href="#pablo"
@@ -87,7 +87,7 @@ function Header() {
               >
                 <span className="no-icon">Log out</span>
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item>*/}
           </Nav>
         </Navbar.Collapse>
       </Container>

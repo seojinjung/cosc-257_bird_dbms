@@ -13,6 +13,7 @@ import {
   Button,
   Modal,
   Dropdown,
+  Form
 } from "react-bootstrap";
 
 function Hierarchy() {
@@ -185,9 +186,12 @@ function Hierarchy() {
         <Card className="card-plain table-plain-bg">
           <Card.Header>
             <Card.Title as="h4">Dominance Hierarchy</Card.Title>
-            <p className="card-category">
-              Currently displaying data from 2021-2022 {/** possible to add metadata so this updates automatically year to year? */}
+            <div style={{ display: 'in-line flex'}}> <p className="card-category">
+              Currently displaying data from:
+              <Form.Control style={{ width: '15%'}} type="date" /> to
+            <Form.Control style={{ width: '15%'}} type="date" />
             </p> 
+            </div>
           </Card.Header>
           <Card.Body className="table-full-width table-responsive px-0">
             <Table className="table-hover">
@@ -198,7 +202,6 @@ function Hierarchy() {
                   <th className="border-0">Band No.</th>
                   <th className="border-0 th-clickable" onClick={() => handleSort('species')}>Species</th>
                   <th className="border-0">Dom Score</th>
-                  <th className="border-0"></th>
                   <th className="border-0"></th>
                 </tr>
               </thead>
@@ -231,12 +234,12 @@ function Hierarchy() {
                           <Dropdown.Item onClick={() => handleViewShow(bird.rfid, bird.species, bird.band_left, bird.band_right, bird.band_no, bird.notes)}>
                               View
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={() => handleEdit(bird)}>
+                            {/*<Dropdown.Item onClick={() => handleEdit(bird)}>
                               Edit
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setShow(true)}>
+                            </Dropdown.Item>*/}
+                            {/*<Dropdown.Item onClick={() => setShow(true)}>
                               Delete
-                            </Dropdown.Item>
+                          </Dropdown.Item>*/}
                           </Dropdown.Menu>
                         </Dropdown>
                       </td>
