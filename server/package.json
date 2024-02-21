@@ -5,9 +5,7 @@
   "main": "index.js",
   "client-install": "npm install --prefix client",
   "scripts": {
-    "server": "forever start index.js",
-    "client": "cd ../ && npm forever start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "forever start index.js"
   },
   "keywords": [],
   "author": "",

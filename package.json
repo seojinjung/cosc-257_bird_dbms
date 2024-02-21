@@ -8,7 +8,7 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "server": "npm run dev --prefix server",
+    "server": "npm start --prefix server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   }
