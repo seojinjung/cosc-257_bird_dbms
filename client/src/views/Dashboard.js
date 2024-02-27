@@ -17,13 +17,15 @@ import {
 } from "react-bootstrap";
 
 function Hierarchy() {
-  // calendar
-  const [date, setDate] = useState(new Date());
 
   // Get bird info
   const {birds, setBirds} = useContext(BirdsContext);
   const {captures, setCaptures} = useContext(CapturesContext)
   const [ranks, setRanks] = useState([]);
+
+  // Calendar Input
+  const [startDate, setStartDate] = useState('2022-09-27');
+  const [endDate, setEndDate] = useState('2022-11-10');
 
   // Sorting by columns
   const [sortBy, setSortBy] = useState(null);
@@ -173,16 +175,19 @@ function Hierarchy() {
     }
   }; 
 
+  // ----------------------------------------------------------------------------
+  // Filter based on Calendar Input
+
+  const filteredCaptures = captures.filter(capture => {
+    const captureDate = new Date(capture.cdate);
+    return captureDate >= new Date(startDate) && captureDate <= new Date(endDate);
+  });
+
+  // ----------------------------------------------------------------------------
+  // DISPLAY THE DASHBOARD.
   return (
     <>
       <Container fluid>
-        {/* <div className='calendar-container'>
-          <h4>Calendar</h4>
-          <Calendar onChange={setDate} value={date} />
-        </div>
-        <p className='text-left'>
-          <span className='bold'>Selected Date: </span>{date.toDateString()}
-        </p> */}
         <Card className="card-plain table-plain-bg">
           <Card.Header>
             <Card.Title as="h4">Dominance Hierarchy</Card.Title>
@@ -192,18 +197,20 @@ function Hierarchy() {
                 style={{ width: '125px', height: '30px', marginLeft: '10px', marginRight: '10px' }}
                 size="sm"
                 type="date"
-                min="2017-04-01"
-                max="2024-04-29"
-                defaultValue="2017-04-01"
+                min="2022-09-27"
+                max="2022-11-10"
+                defaultValue="2022-09-27"
+                // onChange={handleDateChange} 
               />
               <p className="card-category">to</p>
               <Form.Control
                 style={{ width: '125px', height: '30px', marginLeft: '10px' }}
                 size="sm"
                 type="date"
-                min="2017-04-01"
-                max="2024-04-29"
-                defaultValue="2024-04-29"
+                min="2022-09-27"
+                max="2022-11-10"
+                defaultValue="2022-11-10"
+                // onChange={handleDateChange} 
               />
             </div>
           </Card.Header>

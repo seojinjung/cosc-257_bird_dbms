@@ -5,11 +5,8 @@ from datetime import datetime
 import webbrowser 
 import os 
 import warnings
-import psycopg2
 import re
-from sqlalchemy import create_engine
-
-
+# from sqlalchemy import create_engine
 
 
 
@@ -27,7 +24,7 @@ warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning
   
 # Folder Path: **CHANGE FOR WHATEVER FOLDER YOU ARE USING**
 
-path = r"C:\Users\sambl\Dropbox\PC\Downloads\Bird feeder data 2022-2023-20231213T004930Z-001\Bird feeder data 2022-2023"
+path = r"./data/"
   
 # Change the directory 
 
@@ -139,12 +136,12 @@ for folder in os.listdir():
 
 
 
-#Puts data into pgadmin
-conn_string = 'postgresql://postgres:bc-chickadee@cosc-257-node06.cs.amherst.edu/bird_db'
+# #Puts data into pgadmin
+# conn_string = 'postgresql://postgres:bc-chickadee@cosc-257-node06.cs.amherst.edu/bird_db'
 
-engine = create_engine(conn_string)
+# engine = create_engine(conn_string)
 
-df_sql.to_sql('scores', engine, if_exists='replace', index = False)
+# df_sql.to_sql('scores', engine, if_exists='replace', index = False)
 
 
 

@@ -32,30 +32,6 @@ function Configure() {
               <Row>
                 <Col xs="5">
                   <div className="icon-big text-center stats">
-                    <i className="nc-icon nc-refresh-02"></i>
-                  </div>
-                </Col>
-                <Col xs="7">
-                  <div className="numbers">
-                    <Card.Title as="h4">Refresh Scores</Card.Title>
-                  </div>
-                </Col>
-              </Row>
-            </Card.Body>
-            <Card.Footer>
-              <hr></hr>
-              <div className="stats">
-                Last Updated: 7/20/2024
-              </div>
-            </Card.Footer>
-          </Card>
-        </Col>
-        <Col lg="3" sm="6">
-          <Card className="card-stats">
-            <Card.Body>
-              <Row>
-                <Col xs="5">
-                  <div className="icon-big text-center stats">
                     <i className="nc-icon nc-cloud-upload-94"></i>
                   </div>
                 </Col>

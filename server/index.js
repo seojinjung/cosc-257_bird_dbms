@@ -13,7 +13,7 @@ app.use(express.json());
 app.get("/api/v1/birds", async (req, res) => {
 
     try{
-        const results = await db.query("select * from birds order by dom_score desc");
+        const results = await db.query("select * from birds order by dom_score desc select * from birds where rfid IN ( SELECT rfid FROM captures WHERE cdate BETWEEN '2022-09-27' AND '2022-09-30' ) ORDER BY dom_score DESC;");
         res.status(200).json({
             status: "success",
             results: results.rows.length,
