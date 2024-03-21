@@ -15,6 +15,7 @@ import {
   Dropdown,
   Form
 } from "react-bootstrap";
+import LandingsFinder from "apis/LandingsFinder";
 
 function Hierarchy() {
 
@@ -48,18 +49,41 @@ function Hierarchy() {
 
   // ----------------------------------------------------------------------------
   // Get all Bird Info
+
   useEffect(() => {
-    const fetchData = async() => {
-      try{
-        const response = await BirdFinder.get("/");
-        setBirds(response.data.data.birds)
-      } catch(err) {}
-    }
     fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await BirdFinder.fetchBirds(startDate, endDate);
+      setBirds(response); // Assuming response contains the birds directly
+      console.log("In the Dashboard:", response);
+    } catch (err) {
+      console.error('Error fetching data:', err);
+    }
+  };
+  
+  // ----------------------------------------------------------------------------
+  // Get all Bird Info
+
+  useEffect(() => {
+    fetchScores();
+  }, []);
+
+  const fetchScores = async () => {
+    try {
+      const response = await LandingsFinder.fetchLandings(startDate, endDate);
+      setBirds(response); // Assuming response contains the birds directly
+      console.log("In the Dashboard:", response);
+    } catch (err) {
+      console.error('Error fetching data:', err);
+    }
+  };
+  
   // ----------------------------------------------------------------------------
   // Get a specific bird's info when 'viewed'.
+
   useEffect(() => {
     if (rfid !== null && species !== null) {
       // This code will run when both rfid and species are not null
@@ -178,10 +202,24 @@ function Hierarchy() {
   // ----------------------------------------------------------------------------
   // Filter based on Calendar Input
 
-  const filteredCaptures = captures.filter(capture => {
-    const captureDate = new Date(capture.cdate);
-    return captureDate >= new Date(startDate) && captureDate <= new Date(endDate);
-  });
+  const handleStartDateChange = (e) => {
+    // Update startDate state with the input value
+    setStartDate(e.target.value);
+  };
+
+  const handleEndDateChange = (e) => {
+    // Update startDate state with the input value
+    setEndDate(e.target.value);
+  };
+
+  const handleRecalculate = () => {
+    // Update startDate and endDate here if needed
+    console.log("Start: ", startDate)
+    console.log("End: ", endDate)
+    
+    // Call fetchData with new values
+    fetchData();
+  };
 
   // ----------------------------------------------------------------------------
   // DISPLAY THE DASHBOARD.
@@ -200,7 +238,7 @@ function Hierarchy() {
                 min="2022-09-27"
                 max="2022-11-10"
                 defaultValue="2022-09-27"
-                // onChange={handleDateChange} 
+                onChange={handleStartDateChange}
               />
               <p className="card-category">to</p>
               <Form.Control
@@ -210,8 +248,16 @@ function Hierarchy() {
                 min="2022-09-27"
                 max="2022-11-10"
                 defaultValue="2022-11-10"
-                // onChange={handleDateChange} 
+                onChange={handleEndDateChange} 
               />
+              <Button
+                style={{ width: '125px', height: '30px', marginLeft: '10px' }}
+                type="submit"
+                variant="info"
+                onClick={handleRecalculate}
+              >
+                Recalculate
+               </Button>
             </div>
           </Card.Header>
           <Card.Body className="table-full-width table-responsive px-0">

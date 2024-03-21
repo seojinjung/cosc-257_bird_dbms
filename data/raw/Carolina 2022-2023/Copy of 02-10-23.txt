@@ -1,0 +1,237 @@
+carolina
+42.3709, 72.5170
+System Boot: 14:00
+System Time: 18:17
+System Time: 19:17
+System Time: 20:17
+System Time: 21:17
+System Time: 22:17
+System Time: 23:17
+System Time: 00:17
+System Time: 01:17
+System Time: 02:17
+System Time: 03:17
+System Time: 04:17
+System Time: 05:17
+System Time: 06:17
+Reader 0 01-10-16-FA-B3 02/19/23 06:36:50
+System Time: 07:17
+System Time: 08:17
+System Time: 09:17
+System Time: 10:17
+System Time: 11:17
+System Time: 12:17
+System Time: 13:17
+System Time: 14:17
+Reader 1 01-10-3F-93-3C 02/19/23 14:18:07
+Reader 1 3B-00-18-96-B8 02/19/23 14:40:44
+System Time: 15:17
+System Time: 16:17
+System Time: 17:17
+System Time: 18:17
+System Time: 19:17
+System Time: 20:17
+System Time: 21:17
+System Time: 22:17
+System Time: 23:17
+System Time: 00:17
+System Time: 01:17
+System Time: 02:17
+System Time: 03:17
+System Time: 04:17
+System Time: 05:17
+System Time: 06:17
+System Time: 07:17
+Reader 1 01-10-3F-93-3C 02/20/23 07:37:11
+System Time: 08:17
+System Time: 09:17
+Reader 1 01-10-16-E2-28 02/20/23 09:49:54
+Reader 1 01-10-3F-93-3C 02/20/23 09:50:24
+Reader 1 01-10-3F-93-3C 02/20/23 09:50:50
+Reader 0 01-10-16-E2-28 02/20/23 09:52:55
+System Time: 10:17
+System Time: 11:17
+Reader 1 01-10-3F-93-3C 02/20/23 11:39:24
+Reader 1 01-10-3F-93-3C 02/20/23 11:41:10
+Reader 1 01-10-3F-93-3C 02/20/23 11:41:12
+Reader 0 3B-00-18-96-B8 02/20/23 11:44:25
+Reader 1 01-10-3F-93-3C 02/20/23 11:47:28
+Reader 1 01-10-3F-93-3C 02/20/23 12:00:23
+System Time: 12:17
+System Time: 13:17
+Reader 0 3B-00-18-C8-29 02/20/23 13:28:25
+Reader 0 3B-00-18-C8-29 02/20/23 13:28:31
+Reader 0 01-10-3F-93-3C 02/20/23 13:37:45
+Reader 1 01-10-16-E2-28 02/20/23 14:00:54
+Reader 0 01-10-16-FA-B3 02/20/23 14:07:47
+Reader 0 01-10-16-E2-28 02/20/23 14:10:41
+System Time: 14:17
+Reader 1 01-10-16-E2-28 02/20/23 14:21:15
+Reader 1 01-10-3F-93-3C 02/20/23 14:22:30
+Reader 1 01-10-16-E2-28 02/20/23 15:15:15
+System Time: 15:17
+Reader 1 01-10-3F-93-3C 02/20/23 16:15:41
+System Time: 16:17
+System Time: 17:17
+System Time: 18:17
+System Time: 19:18
+System Time: 20:18
+System Time: 21:18
+System Time: 22:18
+System Time: 23:18
+System Time: 00:18
+System Time: 01:18
+System Time: 02:18
+System Time: 03:18
+System Time: 04:18
+System Time: 05:18
+System Time: 06:18
+Reader 1 01-10-16-E2-28 02/21/23 06:46:31
+Reader 1 01-10-3F-93-3C 02/21/23 06:49:28
+Reader 0 3B-00-18-96-B8 02/21/23 07:07:54
+System Time: 07:18
+Reader 0 01-10-3F-93-3C 02/21/23 07:25:41
+Reader 1 01-10-16-E2-28 02/21/23 07:50:24
+System Time: 08:18
+Reader 1 01-10-16-E2-28 02/21/23 08:20:41
+Reader 0 01-10-3F-93-3C 02/21/23 08:23:02
+System Time: 09:18
+Reader 0 3B-00-19-1A-1F 02/21/23 09:23:05
+Reader 0 3B-00-18-E8-4C 02/21/23 09:26:42
+Reader 1 01-10-3F-64-5E 02/21/23 09:28:59
+Reader 0 01-10-3F-93-3C 02/21/23 09:34:04
+Reader 0 3B-00-18-96-B8 02/21/23 09:35:10
+Reader 1 01-10-16-E2-28 02/21/23 09:36:50
+Reader 0 3B-00-18-96-B8 02/21/23 09:36:59
+Reader 0 3B-00-19-1A-1F 02/21/23 09:43:45
+Reader 1 01-10-16-FA-B3 02/21/23 09:46:56
+Reader 0 01-10-16-E2-28 02/21/23 09:49:07
+Reader 0 01-10-3F-93-3C 02/21/23 09:51:29
+Reader 0 01-10-3F-93-3C 02/21/23 10:02:44
+Reader 1 3B-00-19-1A-1F 02/21/23 10:14:07
+Reader 1 01-10-16-E2-28 02/21/23 10:15:44
+Reader 0 01-10-3F-93-3C 02/21/23 10:17:42
+System Time: 10:18
+Reader 0 3B-00-18-6A-59 02/21/23 10:18:23
+Reader 0 01-10-16-E2-28 02/21/23 10:20:31
+Reader 0 01-10-16-E2-28 02/21/23 10:22:30
+Reader 1 01-10-3F-93-3C 02/21/23 10:30:30
+Reader 1 3B-00-18-E8-4C 02/21/23 10:47:32
+Reader 0 3B-00-18-C8-29 02/21/23 10:49:17
+Reader 0 01-10-16-E2-28 02/21/23 11:11:55
+System Time: 11:18
+Reader 1 3B-00-18-E8-4C 02/21/23 11:50:07
+Reader 0 3B-00-18-96-B8 02/21/23 11:51:33
+System Time: 12:18
+System Time: 13:18
+Reader 1 3B-00-19-1A-1F 02/21/23 14:09:40
+System Time: 14:18
+System Time: 15:18
+Reader 1 01-10-16-E2-28 02/21/23 15:24:24
+Reader 1 01-10-3F-93-3C 02/21/23 15:28:44
+Reader 1 01-10-3F-93-3C 02/21/23 16:09:33
+System Time: 16:18
+System Time: 17:18
+System Time: 18:18
+System Time: 19:18
+System Time: 20:18
+System Time: 21:18
+System Time: 22:18
+System Time: 23:18
+System Time: 00:18
+System Time: 01:18
+System Time: 02:18
+System Time: 03:18
+System Time: 04:18
+System Time: 05:18
+System Time: 06:18
+Reader 1 3B-00-18-96-B8 02/22/23 06:35:06
+Reader 1 01-10-3F-93-3C 02/22/23 06:47:17
+System Time: 07:18
+Reader 1 01-10-3F-93-3C 02/22/23 07:28:31
+Reader 1 01-10-3F-93-3C 02/22/23 07:33:46
+System Time: 08:18
+System Time: 09:18
+Reader 1 3B-00-18-E8-4C 02/22/23 09:23:06
+Reader 0 01-10-3F-93-3C 02/22/23 09:37:15
+Reader 1 01-10-3F-93-3C 02/22/23 09:38:53
+System Time: 10:18
+System Time: 11:18
+Reader 0 3B-00-18-96-B8 02/22/23 11:53:32
+Reader 1 01-10-3F-42-55 02/22/23 11:54:51
+Reader 1 01-10-3F-A3-CB 02/22/23 12:17:42
+System Time: 12:18
+Reader 1 01-10-16-E2-28 02/22/23 12:20:09
+Reader 1 01-10-3F-93-3C 02/22/23 12:24:34
+Reader 0 01-10-3F-93-3C 02/22/23 12:24:40
+System Time: 13:18
+System Time: 14:18
+Reader 1 3B-00-19-16-F5 02/22/23 15:07:15
+Reader 1 3B-00-19-16-F5 02/22/23 15:08:33
+System Time: 15:18
+Reader 1 01-10-3F-93-3C 02/22/23 15:39:49
+System Time: 16:18
+System Time: 17:18
+System Time: 18:18
+System Time: 19:18
+System Time: 20:18
+System Time: 21:18
+System Time: 22:18
+System Time: 23:18
+System Time: 00:18
+System Time: 01:18
+System Time: 02:18
+System Time: 03:18
+System Time: 04:18
+System Time: 05:18
+System Time: 06:18
+Reader 0 01-10-3F-93-3C 02/23/23 06:30:18
+Reader 1 01-10-16-FA-B3 02/23/23 06:33:48
+Reader 1 01-10-16-FA-B3 02/23/23 06:36:09
+Reader 0 01-10-3F-64-5E 02/23/23 06:37:12
+Reader 0 01-10-16-FA-B3 02/23/23 06:45:35
+Reader 0 01-10-16-FA-B3 02/23/23 06:45:36
+Reader 0 01-10-3F-64-5E 02/23/23 06:48:20
+System Time: 07:18
+Reader 1 01-10-3F-42-55 02/23/23 08:07:26
+Reader 1 01-10-3F-42-55 02/23/23 08:12:09
+System Time: 08:18
+Reader 1 01-10-16-FA-B3 02/23/23 08:30:11
+Reader 1 3B-00-48-A5-67 02/23/23 08:58:42
+Reader 1 3B-00-48-A5-67 02/23/23 09:00:48
+Reader 1 01-10-16-E2-28 02/23/23 09:09:55
+Reader 1 01-10-3F-64-5E 02/23/23 09:11:27
+System Time: 09:18
+Reader 1 01-10-3F-A3-CB 02/23/23 09:53:38
+Reader 1 3B-00-18-96-B8 02/23/23 10:17:13
+System Time: 10:18
+Reader 1 01-10-16-FA-B3 02/23/23 10:38:15
+Reader 1 01-10-16-BC-71 02/23/23 11:13:39
+System Time: 11:18
+Reader 1 01-10-16-FA-B3 02/23/23 12:05:14
+Reader 1 3B-00-18-DF-C2 02/23/23 12:11:08
+System Time: 12:18
+Reader 1 01-10-3F-93-3C 02/23/23 12:40:23
+Reader 1 01-10-3F-93-3C 02/23/23 13:00:35
+Reader 1 01-10-3F-93-3C 02/23/23 13:01:09
+Reader 1 01-10-3F-93-3C 02/23/23 13:05:52
+System Time: 13:18
+System Time: 14:18
+Reader 1 01-10-3F-93-3C 02/23/23 15:14:55
+Reader 1 01-10-3F-93-3C 02/23/23 15:15:01
+Reader 1 01-10-3F-93-3C 02/23/23 15:15:12
+System Time: 15:18
+System Time: 16:18
+System Time: 17:18
+System Time: 18:18
+System Time: 19:18
+System Time: 20:18
+System Time: 21:18
+System Time: 22:18
+System Time: 23:18
+System Time: 00:18
+System Time: 01:18
+System Time: 02:18
+System Time: 03:18
+System Time: 04:18
+System Time: 05:18

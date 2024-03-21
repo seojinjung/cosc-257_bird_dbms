@@ -1,0 +1,4 @@
+blackcapped
+42.3709, 72.5170
+System Boot: 10:31
+System Time: 12:07

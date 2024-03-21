@@ -1,0 +1,13 @@
+chestnutbacked
+42.3709, 72.5170
+System Boot: 12:29
+System Time: 12:31
+System Boot: 12:31
+System Time: 12:33
+System Boot: 12:33
+System Time: 12:34
+System Boot: 12:35
+System Time: 12:36
+System Boot: 12:36
+System Time: 12:38
+System Boot: 12:39

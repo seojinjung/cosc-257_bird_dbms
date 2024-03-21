@@ -13,7 +13,20 @@ app.use(express.json());
 app.get("/api/v1/birds", async (req, res) => {
 
     try{
-        const results = await db.query("select * from birds order by dom_score desc select * from birds where rfid IN ( SELECT rfid FROM captures WHERE cdate BETWEEN '2022-09-27' AND '2022-09-30' ) ORDER BY dom_score DESC;");
+        // Extract start and end parameters from the query string
+        const startDate = req.query.start;
+        const endDate = req.query.end;
+
+        // Construct the SQL query using parameterized query to prevent SQL injection
+        const query = `
+            SELECT * 
+            FROM birds 
+            WHERE rfid IN (SELECT rfid FROM captures WHERE cdate BETWEEN $1 AND $2) 
+            ORDER BY dom_score DESC`;
+
+        // Execute the SQL query against the database
+        console.log(req)
+        const results = await db.query(query, [startDate, endDate]);
         res.status(200).json({
             status: "success",
             results: results.rows.length,

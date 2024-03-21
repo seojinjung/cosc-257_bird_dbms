@@ -1,0 +1,190 @@
+carolina
+42.3709, 72.5170
+System Boot: 11:16
+System Time: 09:59
+System Time: 10:59
+System Time: 11:59
+System Time: 12:59
+System Time: 13:59
+System Time: 14:59
+Reader 1 3B-00-19-27-FF 11/08/22 15:59:57
+System Time: 15:59
+System Time: 17:00
+System Time: 18:00
+System Time: 19:00
+System Time: 20:00
+System Time: 21:00
+System Time: 22:00
+System Time: 23:00
+System Time: 00:00
+System Time: 01:00
+System Time: 02:00
+System Time: 03:00
+System Time: 04:00
+System Time: 05:00
+System Time: 06:00
+System Time: 07:00
+System Time: 08:00
+System Time: 09:00
+System Time: 10:00
+Reader 1 01-10-3F-64-5E 11/09/22 10:41:03
+System Time: 11:00
+System Time: 12:00
+System Time: 13:00
+System Time: 14:00
+Reader 1 01-10-16-BC-71 11/09/22 14:17:16
+Reader 1 01-10-16-BC-71 11/09/22 14:24:48
+Reader 1 01-10-16-BC-71 11/09/22 14:31:42
+Reader 1 01-10-16-BC-71 11/09/22 14:31:52
+System Time: 15:00
+System Time: 16:00
+Reader 0 01-10-16-BC-71 11/09/22 16:05:17
+System Time: 17:00
+System Time: 18:00
+System Time: 19:00
+System Time: 20:00
+System Time: 21:00
+System Time: 22:00
+System Time: 23:00
+System Time: 00:00
+System Time: 01:00
+System Time: 02:00
+System Time: 03:00
+System Time: 04:00
+System Time: 05:00
+System Time: 06:00
+Reader 0 01-10-16-BC-71 11/10/22 06:25:24
+Reader 1 01-10-3F-48-F6 11/10/22 06:34:03
+Reader 1 01-10-3F-48-F6 11/10/22 06:34:08
+Reader 0 3B-00-18-DB-DB 11/10/22 06:35:37
+Reader 1 01-10-3F-48-F6 11/10/22 06:37:03
+Reader 0 01-10-16-E2-28 11/10/22 06:40:32
+Reader 0 01-10-16-BC-71 11/10/22 06:41:05
+Reader 0 01-10-16-E2-28 11/10/22 06:42:47
+Reader 0 3B-00-18-96-B8 11/10/22 06:52:08
+Reader 0 3B-00-19-16-F5 11/10/22 06:56:51
+System Time: 07:00
+Reader 1 01-10-3F-A3-CB 11/10/22 07:02:44
+Reader 1 01-10-16-BC-71 11/10/22 07:04:32
+Reader 1 01-10-3F-42-55 11/10/22 07:05:35
+Reader 0 01-10-3F-48-F6 11/10/22 07:09:00
+Reader 0 01-10-16-D4-37 11/10/22 07:11:21
+Reader 1 01-10-16-D4-37 11/10/22 07:13:42
+Reader 1 01-10-16-BC-71 11/10/22 07:14:50
+Reader 1 01-10-3F-93-3C 11/10/22 07:14:56
+Reader 1 01-10-3F-48-F6 11/10/22 07:15:37
+Reader 0 01-10-16-D4-37 11/10/22 07:18:45
+Reader 1 01-10-16-FA-B3 11/10/22 07:19:08
+Reader 0 01-10-16-E2-28 11/10/22 07:21:26
+Reader 1 01-10-16-D4-37 11/10/22 07:24:19
+Reader 1 3B-00-18-E8-4C 11/10/22 07:24:48
+Reader 1 01-10-16-D4-37 11/10/22 07:25:20
+Reader 1 3B-00-48-A5-67 11/10/22 07:26:20
+Reader 1 3B-00-18-8B-8D 11/10/22 07:36:16
+Reader 0 01-10-3F-A3-CB 11/10/22 07:40:44
+Reader 1 01-10-3F-A3-CB 11/10/22 07:43:33
+Reader 1 01-10-16-BC-71 11/10/22 07:45:49
+Reader 0 3B-00-18-E8-4C 11/10/22 07:48:27
+Reader 0 01-10-16-E2-28 11/10/22 07:55:02
+Reader 0 01-10-16-E2-28 11/10/22 07:55:55
+Reader 1 01-10-16-E2-28 11/10/22 07:58:50
+System Time: 08:00
+Reader 0 3B-00-19-16-F5 11/10/22 08:00:34
+Reader 1 01-10-16-BC-71 11/10/22 08:04:56
+Reader 0 3B-00-19-1A-1F 11/10/22 08:12:16
+Reader 1 3B-00-18-DF-C2 11/10/22 08:14:06
+Reader 1 01-10-3F-93-3C 11/10/22 08:14:42
+Reader 0 01-10-16-BC-71 11/10/22 08:17:22
+Reader 0 3B-00-18-E8-4C 11/10/22 08:19:19
+Reader 0 01-10-16-BC-71 11/10/22 08:20:06
+Reader 0 01-10-3F-A3-CB 11/10/22 08:21:50
+System Time: 09:00
+System Time: 10:00
+System Time: 11:00
+System Time: 12:00
+System Time: 13:00
+System Time: 14:00
+System Time: 15:00
+System Time: 16:00
+System Time: 17:00
+System Time: 18:00
+System Time: 19:00
+System Time: 20:00
+System Time: 21:00
+System Time: 22:00
+System Time: 23:00
+System Time: 00:00
+System Time: 01:00
+System Time: 02:00
+System Time: 03:00
+System Time: 04:00
+System Time: 05:00
+System Time: 06:00
+System Time: 07:00
+System Time: 08:00
+System Time: 09:00
+System Time: 10:00
+System Time: 11:00
+System Time: 12:00
+System Time: 13:00
+System Time: 14:00
+System Time: 15:00
+System Time: 16:00
+System Time: 17:00
+System Time: 18:00
+System Time: 19:00
+System Time: 20:00
+System Time: 21:00
+System Time: 22:00
+System Time: 23:00
+System Time: 00:00
+System Time: 01:00
+System Time: 02:00
+System Time: 03:00
+System Time: 04:00
+System Time: 05:00
+System Time: 06:00
+System Time: 07:00
+System Time: 08:00
+System Time: 09:00
+System Time: 10:00
+System Time: 11:00
+System Time: 12:00
+System Time: 13:00
+System Time: 14:00
+System Time: 15:00
+System Time: 16:00
+System Time: 17:00
+System Time: 18:00
+System Time: 19:00
+System Time: 20:00
+System Time: 21:00
+System Time: 22:00
+System Time: 23:00
+System Time: 00:00
+System Time: 01:00
+System Time: 02:00
+System Time: 03:00
+System Time: 04:00
+System Time: 05:00
+System Time: 06:00
+System Time: 07:00
+System Time: 08:00
+System Time: 09:00
+System Time: 10:00
+System Time: 11:00
+System Time: 12:00
+System Time: 13:00
+System Time: 14:00
+System Time: 15:00
+System Time: 16:00
+System Time: 17:00
+System Time: 18:00
+System Time: 19:00
+System Time: 20:00
+System Time: 21:00
+System Time: 22:00
+System Time: 23:00
+System Time: 00:00
+System Time: 01:00
+System Boot: 11:16
