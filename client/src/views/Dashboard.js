@@ -4,6 +4,8 @@ import BirdFinder from "apis/BirdFinder";
 import { BirdsContext } from "context/BirdsContext";
 import CaptureFinder from "apis/CaptureFinder";
 import { CapturesContext } from "context/CaptureContext";
+import LandingsFinder from "apis/LandingsFinder";
+import { LandingsContext } from "context/LandingsContext";
 
 // react-bootstrap components
 import {
@@ -15,7 +17,7 @@ import {
   Dropdown,
   Form
 } from "react-bootstrap";
-import LandingsFinder from "apis/LandingsFinder";
+
 
 function Hierarchy() {
 
@@ -74,7 +76,7 @@ function Hierarchy() {
   const fetchScores = async () => {
     try {
       const response = await LandingsFinder.fetchLandings(startDate, endDate);
-      setBirds(response); // Assuming response contains the birds directly
+      // Assuming response contains the birds directly
       console.log("In the Dashboard:", response);
     } catch (err) {
       console.error('Error fetching data:', err);

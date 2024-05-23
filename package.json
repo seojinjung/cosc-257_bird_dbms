@@ -4,7 +4,10 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "forever": "^4.0.3",
+    "react": "^18.2.0",
     "react-calendar": "^4.7.0",
+    "react-dom": "^18.2.0",
+    "react-r": "^2.0.0-rc02",
     "typescript": "^5.3.3"
   },
   "scripts": {

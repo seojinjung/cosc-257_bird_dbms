@@ -148,6 +148,27 @@ app.get("/api/v1/captures/:rfid", async (req, res) => {
 
 });
 
+// get all landings
+app.get("/api/v1/landings", async (req, res) => {
+
+    try{
+        const query = "WITH domscore AS (SELECT rfid, feeder, time_s, datetime, LAG(rfid) OVER (ORDER BY datetime) AS prev_rfid, LAG(time_s) OVER (ORDER BY datetime) AS prev_time_s FROM landings) SELECT rfid, SUM(CASE WHEN prev_rfid IS NOT NULL AND prev_rfid <> rfid AND prev_time_s - time_s < 3 THEN 1 ELSE 0 END) AS score FROM domscore GROUP BY rfid;"
+        // Execute the SQL query against the database
+        console.log(req)
+        const results = await db.query(query, [startDate, endDate]);
+        res.status(200).json({
+            status: "success",
+            results: results.rows.length,
+            data: {
+                landings: results.rows,
+            },
+        });
+    } catch(err) {
+        console.log(err);
+    }
+    
+});
+
 // get a feeder's total visits from the scores table
 app.get("/api/v1/scores/:fname", async (req, res) => {
     try{

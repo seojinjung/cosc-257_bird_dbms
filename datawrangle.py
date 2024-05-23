@@ -50,18 +50,18 @@ except Exception as e:
 
 # ----------------------- Time to Seconds -----------------------
 
-# """
+"""
 
 # Function to convert time to seconds
 def time_to_seconds(time_str):
     time_obj = datetime.strptime(time_str, '%H:%M:%S')
     return time_obj.hour * 3600 + time_obj.minute * 60 + time_obj.second
 
-# """
+"""
 
 # ----------------------- 1: Wrangling Landings (RAW)-----------------------
 
-# """
+"""
 
 # Specify the folder containing the text files
 path = "./data/raw/"
@@ -120,11 +120,11 @@ data1 = data1.drop('Reader', axis=1)
 data1['rfid'] = data1['rfid'].str.replace('-', '')
 print("DATA1", data1)
 
-# """
+"""
 
 # ----------------------- 2: Wrangling Landings (NO SECS) -----------------------
 
-# """
+"""
 
 # read in the data
 data2 = pd.read_csv('./data/all_landings23.csv')
@@ -134,11 +134,11 @@ data2 = data2.drop('reader', axis=1)
 #data2['time_s'] = data2['time'].apply(time_to_seconds)
 print("DATA2", data2)
 
-# """
+"""
 
 # ----------------------- 3: Wrangling Landings (CLEANING UP) -----------------------
 
-# """
+"""
 
 # read in the data
 data3 = pd.read_csv('./data/all_landings21.csv')
@@ -151,11 +151,11 @@ data3 = data3.drop('time_s', axis=1)
 data3['rfid'] = data3['rfid'].str.replace('-', '')
 print("DATA3", data3)
 
-# """
+"""
 
 # ----------------------- Combining Landings -----------------------
 
-# """
+"""
 
 #to merge
 dfs = [data1, data2, data3]
@@ -168,11 +168,10 @@ data_combined['rfid'].str.strip()
 data_combined['feeder'].str.strip()
 print("DATAALL", data_combined)
 
-# """
+"""
 
 # ----------------------- Sending Landings to Database -----------------------
 
-# """
 
 connection_url = ('postgresql://postgres:bc-chickadee@cosc-257-node06.cs.amherst.edu/bird_db')
 
@@ -190,16 +189,16 @@ try:
 
         # step 2 - merge temp_table into main_table
         conn.exec_driver_sql(
-            """
+            '
             INSERT INTO landings (rfid, feeder, datetime) 
             SELECT rfid, feeder, datetime FROM temp_landings
             ON CONFLICT (rfid, datetime) DO NOTHING;
-            """
+            '
         )
 
         print(">>> All good.")
 except Exception as e:
     print(">>> Something went wrong!")
 
-# """
+
 

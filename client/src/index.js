@@ -30,6 +30,7 @@ import { BirdsContextProvider } from "context/BirdsContext";
 import { FeederContextProvider } from "context/FeederContext";
 import { CapturesContextProvider } from "context/CaptureContext";
 import { ScoreContextProvider } from "context/ScoreContext";
+import { LandingsContextProvider } from "context/LandingsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -38,12 +39,14 @@ root.render(
         <FeederContextProvider>
                 <CapturesContextProvider>
                         <ScoreContextProvider>
-                                <BrowserRouter>
-                                <Switch>
-                                <Route path="/main" render={(props) => <AdminLayout {...props} />} />
-                                <Redirect from="/" to="/main/hierarchy" />
-                                </Switch>
-                                </BrowserRouter>
+                                <LandingsContextProvider> 
+                                        <BrowserRouter>
+                                        <Switch>
+                                        <Route path="/main" render={(props) => <AdminLayout {...props} />} />
+                                        <Redirect from="/" to="/main/hierarchy" />
+                                        </Switch>
+                                        </BrowserRouter>
+                                </LandingsContextProvider> 
                         </ScoreContextProvider>
                 </CapturesContextProvider>
         </FeederContextProvider>
